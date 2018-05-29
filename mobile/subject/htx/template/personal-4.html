@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport"/>
+<meta name ="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge ,chrome=1" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title><?php echo $global['title'];?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/personal-css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel='stylesheet' href="<?php echo apth_url('subject/htx/css/swiper.min1.css');?>"> 
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/personal/tab.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+</head>
+
+<body class="personal-body">
+<div class="personal-head personal-head-a">
+	<div class="personal-fh" onclick="return_bak();"></div>
+	<p>我的订单</p>
+</div>
+
+<div class="con-tab-personal">
+	<!-- header -->
+	<header class="favor-header-bar personal-tabs">
+	    <ul class="tabs">
+	        <li class="li"><a href="javascript:void(0);" class="default">全部</a></li>
+	    </ul>
+	</header>
+   <!-- slideTo tab -->
+   <div class="swiper-container favor-list">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide swiper-slide-1">
+<?php if(!empty($info['rows'])){?> 
+     <?php foreach($info['rows'] as $k=>$v){?>      				      
+ 				<div class="coursediv">
+					<ul class="ul-learn course-ul order-ul">
+						<li> 
+							<div class="middle">
+								<h3>
+								<?php if($v['objtype']==1){?>
+									<a href="<?php echo apth_url('?act=data_content&consid='.$v['infoid']);?>">
+								<?php }else{?>
+									<a href="<?php echo apth_url('?act=videoinfo&contid='.$v['infoid']);?>">
+								<?php }?> 
+								<?php echo $v['title'];?>
+								</a>
+								</h3>
+								<section>
+									<span>购买时间：<?php echo $v['ordertime'];?></span>
+									<span>订单号：<?php echo $v['ordersn'];?></span>
+								<?php if($v['state']!=2){?>									
+									<b style="color:#979797;">状态：未支付</b>
+								<?php }else{?>
+									<b style="color:#ff0047;">状态：已支付</b>
+								<?php }?> 	
+								</section>
+							</div>
+					<?php if($v['state']!=2){?>
+						<?php if($v['objtype']==1){?>
+							<a href="<?php echo apth_url('?act=data_content&consid='.$v['infoid']);?>" class="dd-btn">去支付</a>
+						<?php }else{?>
+							<a href="<?php echo apth_url('?act=videoinfo&contid='.$v['infoid']);?>" class="dd-btn">去支付</a>
+						<?php }?> 	
+					<?php }else{?>
+						<?php if($v['objtype']==1){?>
+							<a href="<?php echo apth_url('?act=data_content&consid='.$v['infoid']);?>" class="dd-btn" style="background-color:#9e9c9c;">资料</a>
+						<?php }else{?>
+							<a href="<?php echo apth_url('?act=videoinfo&contid='.$v['infoid']);?>" class="dd-btn" style="background-color:#9e9c9c;">视频</a>
+						<?php }?> 	
+					<?php }?> 		
+						</li>
+					</ul>
+				</div>   
+	<?php }?> 			
+<?php }else{?>
+	<div class="coursediv">
+		<ul class="ul-learn course-ul order-ul">
+			<li style="text-align:center;font-size:14px;color:#DDDDDD;">暂时没有订单</li>			
+		</ul>
+	</div>  
+<?php }?> 	
+<?php if($totalrows>$totalshow){?>
+			<div style="text-align:center;line-height:45px;">
+				<span onclick="up_page('<?php echo ($page-1);?>');">上一页</span> &nbsp; <span onclick="down_page('<?php echo ($page+1);?>');">下一页</span> &nbsp; 当前 <?php echo $page;?>/<?php echo $totalpage;?> 页 &nbsp; 总数<?php echo $totalrows;?>条
+			</div>
+<?php }?>					       
+            </div>                      
+        </div>
+   </div>
+</div>
+
+<?php require('menu.html');?>
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script> 
+<script> 
+function return_bak(){
+	location.href="<?php echo apth_url('?act=mypersonal');?>"
+}
+//上一页
+function up_page(page){
+	location.href="<?php echo apth_url('?act=mypersonal_in&locat=4');?>&page="+page;
+}
+//下一页
+function down_page(page){
+	location.href="<?php echo apth_url('?act=mypersonal_in&locat=4');?>&page="+page;
+}
+</script> 
+</body>
+</html>

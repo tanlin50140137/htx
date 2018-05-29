@@ -1,0 +1,79 @@
+*{margin: 0;padding: 0;list-style: none;word-wrap:break-word; }
+
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote,dl, dt, dd, ul, ol, li,pre,form, fieldset, legend, button, input, textarea,th, td, b{ margin: 0; padding: 0; font-weight: normal;}
+body,button, input, select, textarea{ font-family: "Helvetica Neue", Helvetica, STHeiTi,\5FAE\8F6F\96C5\9ED1; font-size:0.6rem;color:#333;}
+h1, h2, h3, h4, h5, h6 { font-size: 100%;}
+address, cite, dfn, em, var, b{ font-style: normal; }
+small { font-size: 0.6rem; }
+ul, ol { list-style: none; }
+li,div,dt,a,span,input,textarea,select,label{-webkit-tap-highlight-color:rgba(255,0,0,0);}
+a {text-decoration: none; color:#555; display: block;}
+a:hover { text-decoration: none;}
+
+fieldset, img { border: 0; margin: 0; padding: 0;}
+button, input, select, textarea { font-size: 100%; outline:none;}
+input::-moz-placeholder,textarea::-moz-placeholder {color: #aaa;}
+input:-ms-input-placeholder,textarea:-ms-input-placeholder {color: #aaa;}
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder {color: #aaa;}
+button,input[type="button"], input[type="submit"] {line-height:normal !important;}
+.clearfix:after{content:"";display:block;height:0;clear:both;visibility:hidden}
+.clearfix{display:block;*zoom:1}
+table { border-collapse: collapse; border-spacing: 0; }
+.clear{ clear:both;height:0; overflow:hidden;}
+
+.show{ display:block !important;}
+.hide{ display:none !important;}
+i{ font-style:normal;}
+
+.fl{
+	float: left;
+}
+
+.fr{
+	float: right;
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+	border: 1px solid #e11515 !important;
+}
+
+
+input[type="button"], input[type="submit"]{}
+
+
+img{
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+@media screen and (min-width:375px){ 
+html{ font-size: 20px;}  
+}
+
+@media screen and (min-width:384px){ 
+html{ font-size: 20.48px;}  
+}
+@media screen and (min-width:412px){ 
+html{ font-size: 21.973px;}  
+}
+@media screen and (min-width:414px){ 
+html{ font-size: 22.08px;}  
+}
+@media screen and (min-width:424px){ 
+html{ font-size: 22.613px;}  
+}
+@media screen and (min-width:480px){ 
+html{ font-size:25.6px;}  
+}
+@media screen and (min-width:540px){ 
+html{ font-size:28.8px;}  
+}
+@media screen and (min-width:600px){ 
+html{ font-size: 32px;}  
+}
+@media screen and (min-width:800px){ 
+html{ font-size:42.667px;}  
+}

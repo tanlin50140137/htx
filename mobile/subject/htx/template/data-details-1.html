@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title><?php echo $row['title'];?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/personal-css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/personal/tab.js');?>"></script> 
+</head>
+<body class="personal-body">
+<!-- 头部 -->
+<div class="headbox headbox-a">
+	<div class="return" data-ripple>返回</div>
+	<div class="location">手记</div>
+	<?php require('pic.html');?>
+</div>
+<!-- /头部 -->
+<div class="deta-content deta-content-1">
+	<div class="deta-tit">
+		<h3><?php echo $row['title'];?></h3>
+		<div>
+			<span><?php echo $row['flname'];?></span>
+			<span><?php echo $row['ymd'];?></span>			
+		</div>
+	</div>
+
+	<div class="deta-text"><?php echo $row['body'];?></div>
+
+</div>
+
+<div class="sm-div sj-div">
+	<strong>
+		<img src="<?php echo $userinfo['pic'];?>" alt="头像">
+	</strong> 
+	<h3><?php echo $userinfo['username'];?></h3> 
+</div>
+
+<div class="sm-div-box">
+	<ul>
+		<li>
+			<div class="note-questions-top">
+				<strong class="note-portrait">
+					<img src="<?php echo $userinfo['pic'];?>" alt="头像">
+				</strong>
+				
+				<div class="note-tit">
+					<p><?php echo $userinfo['username'];?></p>
+					<p class="p"><?php echo $userinfo['autograph'];?></p>
+				</div>
+			</div>
+		</li>
+
+		<li class="focus-on">
+			<a href="javascript:void(0);" onclick="GuanZhu(this);">关注</a>
+			<a href="<?php echo apth_url('?act=AskContQues&user='.$row['id']);?>">提问</a>
+		</li>
+<?php if(!empty($HotRow)){?>
+		<li>
+			<h5 class="h5div">相关手记</h5>
+			<dl class="sj-dl">
+	<?php foreach($HotRow as $k=>$v){?>		
+				<dd><b><?php echo ($k+1);?></b><a href="<?php echo apth_url('?act=ContentsNotes&contid='.$v['id'].'&user='.$user);?>"><?php echo subString($v['title'],20);?></a></dd>
+	<?php }?>			
+			</dl>
+		</li>
+<?php }?>
+		<li class="li"></li>
+	</ul>
+</div>
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script>
+<script>
+/*历史返回*/
+$('.return').click(function(){
+	history.go(-1);
+});
+function GuanZhu(t)
+{
+	var myid = "<?php echo $member_all['id'];?>";
+	if(myid == ''){
+		layer.open({
+		    content: '请先登录'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	$.post('<?php echo apth_url("index.php");?>',{"act":"MAddAttention","userid":"<?php echo $user;?>","myid":"<?php echo $member_all['id'];?>","username":"<?php echo $boolstr['username']?>"},function(data){
+		//console.log(data);return false;
+		var obj = eval("("+data+")");
+		if( obj.error == 0 )
+		{/*成功*/
+			$(t).html('已关注');
+			if( obj.txt == 'success' )
+			{	
+				layer.open({
+				    content: '已添加关注'
+				    ,skin: 'msg'
+				    ,time: 2
+				});
+			}
+			else
+			{
+				layer.open({
+				    content: '你已经关注过'
+				    ,skin: 'msg'
+				    ,time: 2
+				});
+			}
+		}
+		else if( obj.error == 1 )
+		{/*参数为空*/
+			layer.open({
+			    content: obj.txt
+			    ,skin: 'msg'
+			    ,time: 2
+			});
+		}
+		else if( obj.error == 2 )
+		{/*关注自已*/
+			layer.open({
+			    content: obj.txt
+			    ,skin: 'msg'
+			    ,time: 2
+			});
+		}
+		else if( obj.error == 3 )
+		{/*已关注过*/
+			layer.open({
+			    content: obj.txt
+			    ,skin: 'msg'
+			    ,time: 2
+			});
+		}
+		else if( obj.error == 4 )
+		{/*失败*/
+			layer.open({
+			    content: '系统错误，关注失败，无法关注。'
+			    ,skin: 'msg'
+			    ,time: 2
+			});
+		}
+	});	
+}
+</script> 
+</body>
+</html>

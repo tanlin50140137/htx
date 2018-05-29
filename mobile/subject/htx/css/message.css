@@ -1,0 +1,266 @@
+
+
+.back{
+    position: absolute;  
+	top: 0;
+	left: 0.3rem;
+    width: 0.2rem;
+    height:0.4rem;
+    margin-top: 0.34rem;
+    background-size: 0.2rem 0.4rem;
+}
+.header .tit{
+    font-size: 0.32rem;
+    vertical-align: middle;
+    text-align: center;
+    height: 1rem;
+    line-height: 1rem;
+    font-weight: normal;
+}
+.header .right{
+	position: absolute;
+	right: 0.3rem;
+	top: 0;
+	float: none;
+	font-size: 0.24rem;
+	line-height: 1.2rem;
+}
+.message{
+    background-color: #f1f1f1;
+	padding: 0rem 0.4rem 3.5rem 0.4rem;	
+}
+.time{
+    font-size:0.5rem;
+    color:#999;
+    margin:0.8rem 0 0.6rem;
+    text-align: center;
+}
+.msg{
+	overflow: hidden;
+}
+
+.message-div{
+	width: 80%;
+	border-radius: 4px;
+	float: right;
+	background-color: ;
+	background:#fff;
+    padding: 0.4rem;
+    line-height: 1rem;
+    background: #fff;
+    font-size: 0.7rem;
+    margin-right: 0.4rem;
+    position: relative;
+}
+
+.message-div:before{
+	content: "▶";
+	position: absolute;
+	top: 0.4rem;
+	right: -0.3rem;
+	color: #fff;
+}
+
+.message-text26{
+	color: #000;
+	text-align: justify;
+}
+
+.message-b img{
+	width: 1.4rem;
+    float: left;
+    height: 1.4rem;
+}
+
+.msg img{
+    border-radius: 50%;
+}
+
+.message-c{
+	padding-bottom: 0.2rem;
+	margin-bottom: 0.2rem;
+	border-bottom: 1px solid #ededed;
+}
+
+.message-b .message-text26{
+	font-size: 0.65rem;
+	line-height: 1rem;
+	margin-left: 0.2rem;
+	float: left;
+	margin-top: 0.3rem;
+	width: 86%;
+}
+
+.message-b .message-text26 span{
+	color: #979797;
+	margin-right: 0.2rem;
+}
+
+.msg-img1{
+	float: right !important;
+}
+
+
+
+.footer{
+	position: fixed;
+	bottom: 0;
+	padding: 0.4rem 0;
+    background-color:#fff;
+    width: 100%;
+    max-width: 750px;
+    border-top: 1px solid #ddd;
+}
+.footer img{
+    margin-left:0.2rem;
+    width: 0.5rem;
+}
+ .footer textarea{
+    margin-left:2%;
+    width:75%;
+    min-height:2rem;
+    height: 2rem;
+    border-radius: 0.1rem;
+    border:1px solid #ddd;
+	-webkit-appearance: none;
+	text-indent: 0.1rem;
+	padding-top: 0.1rem;
+}
+.footer p{
+    width:15%;
+    height:2.1rem;
+    color:#fff;
+    line-height:2.1rem;
+    text-align:center;
+    background-color:#e11515;
+    border: 1px solid #e11515;
+    border-radius: 0.1rem;
+    float:right;
+    font-size: 0.8rem;
+    text-align: center;
+    margin-right: 2%;
+}
+.send:after,.show:after,.msg:after{
+	content: "";
+	clear: both;
+	display: table;	
+}
+
+.msg>img{
+	width: 1.8rem;
+	float: left;
+	height: 1.8rem;
+}
+.msg>p{
+	float: left;
+	margin:0  0.4rem;
+	padding: 0.4rem;
+	line-height: 1rem;
+	background: #fff;
+	font-size: 0.7rem;
+	position: relative;
+	border-radius: 0.2rem;
+	max-width:13.5rem ;
+	box-sizing: border-box;
+}
+
+
+
+@media screen and (max-width:350px){ 
+.msg>p{
+	max-width:12rem ;
+}
+}
+
+.show .msg img,.show .msg p,.show .msg{
+	float: right;
+}
+
+.send .msg p{
+	position: relative;
+}
+
+.send .msg p:before{
+	position: absolute;
+	content: '▲';
+	top: 0.4rem;
+	left: -0.4rem;
+	color: #fff;
+	font-size: 0.8rem;   
+	 -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+
+
+.show .msg p:before{
+	position: absolute;
+	content: '▲';
+	top: 0.4rem;
+	right: -0.4rem;
+	color: #fff;
+	font-size: 0.8rem;   
+	 -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.send,.show{
+	padding-bottom: 0.3rem;
+}
+.alert_novip,.flower_num,.give_flower{
+	display: none;
+	padding: 0.3rem 0.5rem;
+	font-size: 0.28rem;
+}
+.alert_novip p,.flower_num  p{
+	margin-bottom: 0.45rem;
+
+.layui-layer-wrap button{
+	font-size: 0.28rem;
+	padding: 0.2rem 0.3rem;
+	margin-top: 0.1rem;
+	background: #f8f8f8;
+	border-radius: 10px;
+}
+}
+.flower_num button{
+	padding: 0.2rem 0.5rem;
+	border-radius: 10px;
+}
+.layui-layer-wrap button:first-child{
+	float: left;
+}
+.layui-layer-wrap button:last-child{
+	float: right;
+	background: #FF7171;
+	color: #fff;
+}
+.alert_novip button{
+	padding: 0.2rem 0.3rem;
+    border-radius: 10px
+}
+.flower{
+	width: 0.8rem;
+	margin: 0 auto;
+}
+.give_flower{
+	text-align: center;
+}
+.give_flower p{
+	text-align: center;
+	line-height: 1.5;
+}
+.give_flower input{
+	width: 1rem;
+	margin-right: 0.1rem;
+	margin-top: 0.2rem;
+}
+.give_flower button{
+	display: block;
+	width: 3rem;
+	font-size: 0.28rem;
+	margin: 0 auto;
+	margin-top: 0.6rem;
+	float: none!important;
+	line-height: 0.65rem;
+	border-radius: 10px;
+}

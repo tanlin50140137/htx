@@ -1,0 +1,217 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport"/>
+<meta name ="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge ,chrome=1" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title><?php echo $global['title'];?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/banner.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/swiper-3.2.7.min.css');?>" />
+<script src="<?php echo apth_url('subject/htx/js/jquery.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/amazeui.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/common.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/video-details2.js');?>"></script>
+<script type="text/javascript" src="<?php echo apth_url('subject/htx/js/swiper-3.4.0.jquery.min.js');?>" ></script> <!-- 章节 -->
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script>
+</head>
+
+<body>
+<!-- 头部 -->
+<div class="headbox headbox-a">
+	<div class="return" data-ripple><a href="<?php echo apth_url();?>">返回</a></div>
+	<div class="location">提问</div>
+	<?php require('pic.html');?>
+</div>
+<!-- /头部 -->
+<div class="widthdiv-a">
+<form id="form_data">
+	<div class="widthdiv">
+		<div class="ask-div">
+			<input type="text" name="title" placeholder="请输入你的问题 以“？”结尾">
+			<textarea placeholder="请精确描述你的问题，不要写与问题无关的内容。" name="body"></textarea>
+		</div>
+
+		<div class="choose">
+			<p>请选择分类，最多可选1个</p>
+		</div>
+
+			<div class="search-classify">
+				<div class="classify-a">
+					<p class="classify-p">分类:</p>
+				    <select class="fl search-select classify-select" onchange="GetSelectID(this);">
+				    <option value="-1">请选择分类</option>
+<?php if(!empty($fl['rows'])){?>	
+	<?php foreach($fl['rows'] as $k=>$v){?>			    
+				        <option value="<?php echo $v['id'];?>"><?php echo $v['name'];?></option>
+	<?php }?>			        
+<?php }?>
+				    </select>
+				</div>
+
+				<div class="classify-a">
+					<p class="classify-p classify-p1">通用:</p>
+					<div class="upload-a upload-modify1">
+					</div>
+				</div>
+			</div>
+
+
+		<div class="ask-div ask-code">
+			<input type="text" name="virify" placeholder="请输入验证码">
+			<a href="javascript:void(0);" class="yzm-btn"><img src="<?php echo apth_url('system/virify.php');?>" onclick="this.src='<?php echo apth_url('system/virify.php');?>?random='+Math.random();" alt="请输入验证码" style="width:85%;"></a>
+		</div>			
+		<input type="hidden" name="cipid" id="cipid" value=""/>
+        <input type="hidden" name="fhpid" id="fhpid" value=""/>
+        <input type="hidden" name="myid" value="<?php echo $member_all['id'];?>"/> 
+        <input type="hidden" name="act" value="mQuestions"/> 
+		<a href="javascript:void(0);" class="con-btn" onclick="SendData();">提交</a>
+		</div>
+</form>
+</div>
+
+<!-- 底部 菜单-->
+<?php require('menu.html');?>
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script> 
+<script>
+function GetSelectID(t){
+	var id = $(t).val();
+	if(id!='-1')
+	{
+		$("#fhpid").val(id);
+		$.post("<?php echo apth_url('index.php');?>",{"act":"getzfl","id":id},function(data){
+			var obj = eval("("+data+")");
+			var len = obj.rows.length;
+			var html='';
+			$(".upload-modify1").empty();
+			for(var i=0;i<len;i++){
+				html += '<a href="javascript:void(0);" datas-ids="'+obj.rows[i].id+'" onclick="GetZFLID(this);">'+obj.rows[i].name+'</a>';
+			}
+			$(".upload-modify1").append(html);
+		});
+	}	
+}
+function GetZFLID(t){
+	var id = $(t).attr('datas-ids');
+	$("#cipid").val(id);
+	$(".upload-modify1 a").removeClass('a');
+	$(t).addClass('a');
+}
+function SendData(){
+	var myid = $("[name='myid']").val();
+	if(myid == ''){
+		layer.open({
+		    content: '请先登录'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	var title = $("[name='title']").val();
+	if(title == ''){
+		layer.open({
+		    content: '请输入你的问题 以“？”结尾'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	var ext = title.substr(-1,1);	
+	var att = ext=='？'?'?':ext;
+	if( att!='?' ){
+		layer.open({
+		    content: '以“？”结尾'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	var body = $("[name='body']").val();
+	if( body == '' ){
+		layer.open({
+		    content: '请精确描述你的问题，不要写与问题无关的内容。'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	var fhpid = $("[name='fhpid']").val();
+	if( fhpid == '' ){
+		layer.open({
+		    content: '请选择分类'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	var cipid = $("[name='cipid']").val();
+	if( cipid == '' ){
+		layer.open({
+		    content: '请选择子分类'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	var virify = $("[name='virify']").val();
+	if( virify == '' ){
+		layer.open({
+		    content: '验证码'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	//提交
+	 var formData = new FormData();
+	 formData.append("act", $("[name='act']").val());
+	 formData.append("myid", $("[name='myid']").val());	 
+	 formData.append("fhpid", $("[name='fhpid']").val());
+	 formData.append("cipid", $("[name='cipid']").val());
+	 formData.append("body", $("[name='body']").val());
+	 formData.append("title", $("[name='title']").val());
+	 formData.append("virify", $("[name='virify']").val());
+     $.ajax({
+         url: "<?php echo apth_url('index.php');?>",
+         type: "POST",
+         data: formData,
+         contentType: false,
+         processData: false,
+         success:function(data){
+        	 var obj = eval("("+data+")");
+        	 if(obj.error == 0){       		 
+        		 layer.open({
+      			   content: '提问成功请等待网友回复'
+      			  ,skin: 'msg'
+      			  ,time: 2
+      			  ,end:function(emd){
+      				$(".upload-modify1").empty();
+      				$("#fhpid").val('');
+      				$("#cipid").val('');
+      				$("#form_data")[0].reset();
+      			  }
+      		});
+        	 }else{
+        		 layer.open({
+        			   content: obj.txt
+        			  ,skin: 'msg'
+        			  ,time: 2
+        		});
+        	 }
+         }
+     });
+}
+</script>
+</body>
+</html>

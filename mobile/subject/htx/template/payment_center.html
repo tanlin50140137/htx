@@ -1,0 +1,293 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport"/>
+<meta name ="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge ,chrome=1" />
+<meta name="keywords" content="<?php echo $row['tags']==''?$row['flname']:$row['tags'];?>" />
+<meta name="description" content="<?php echo $row['description']?>">
+<title><?php echo $row['title'];?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<script src="<?php echo apth_url('subject/htx/js/jquery.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/amazeui.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/common.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script> 
+</head>
+<body>
+<!-- 头部 -->
+<div class="headbox headbox-a">
+	<div class="return" id="callback" data-ripple>返回</div>
+	<div class="location">支付中心</div>
+	<?php require('pic.html');?>
+</div>
+<script>
+/*历史返回*/
+$('#callback').click(function(){
+	history.go(-1);
+});
+</script> 
+<!-- /头部 -->
+<div class="widthdiv-a">
+	<div class="widthdiv">
+		<div class="pay-top">
+			<div class="pay-top-a">
+				订单号：<span><?php echo $order;?></span>
+			</div>
+
+			<div class="pay-top-b">
+				本节金额：<span>&yen; <?php echo $free;?> 元</span>
+			</div>
+		</div>
+
+		<div class="video-a">
+			<ul class="ul-learn ul-learn-10">
+				<li>
+					<a href="javascript:void(0);" class="ul-learn-a">
+						<img src="<?php echo get_pixels($coverapth,242,159);?>" alt="<?php echo $row['tags'];?>">
+					</a>
+					<div class="middle">
+						<h3><?php echo $row['tags'];?></h3>
+						<section>
+							<span><?php echo $row['flname'];?></span>
+							<span><?php echo $row['statefile']==1?'通用':$row['areaname'];?></span>
+						</section>
+					</div>
+				</li>
+			</ul>
+		</div>
+
+		<div class="discount">
+			<h3>全部章节</h3>
+			<form action="" method="get">
+				<label><input type="checkbox" value="1" class="input-a select_alls">全选 </label>
+			</form>
+<?php if($t>$a_set){?>			
+			<p>（全部购买打<?php echo $discount;?>折）</p>	
+<?php }?>				
+		</div>
+
+		<div class="video-section">
+			<div class="swiper-container swiper1">
+				<ul class="section-ul swiper-wrapper swiper-wrapper-a">
+<?php if(!empty($RowsAll)){?>	
+	<?php foreach($RowsAll as $k=>$v){?>
+			<?php if($v['integral']!=0){?>
+					<?php if( $v['state'] == 2 && in_array($v['numbers'],$v['numbers_pay']) ){?>
+						<li class="swiper-slide" style="background:rgba(234, 231, 231, 0.29);"><a href="javascript:void(0);" style="color:#ded0d0;"><?php echo $v['numbers'];?></a></li>
+					<?php }else{?>
+						<?php if( $numbers != $v['numbers'] ){?>
+							<li class="swiper-slide select_free_pay" style="background:hsla(0, 9%, 91%, 0.64);"><a href="javascript:void(0);" class="a"><?php echo $v['numbers'];?></a><span>付</span></li>
+						<?php }else{?>
+							<li class="swiper-slide select_free_pay" style="background:#0a8ed8;"><a href="javascript:void(0);" class="a"><?php echo $v['numbers'];?></a><span>√</span></li>
+						<?php }?>
+					<?php }?>
+			<?php }else{?>					
+					<li class="swiper-slide" style="background:rgba(234, 231, 231, 0.29);"><a href="javascript:void(0);" style="color:#ded0d0;"><?php echo $v['numbers'];?></a></li>
+			<?php }?>							
+	<?php }?>				
+<?php }?>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="widthdiv-a">
+	<div class="widthdiv">
+		<div class="pay-bott">
+			<p>应付金额：<span class="yfje_all">&yen; <?php echo $free;?> 元</span></p>
+			<a href="javascript:void(0);" class="con-btn">立即支付</a>
+		</div>
+		<div class="attention">请在24小时0分钟内支付完成，如未完成此订单将自动关闭。需要重新购买 </div>
+	</div>
+</div>
+<!-- 支付方式-->
+<div class="share-div payment-div">
+	<div class="gb_resLay">
+		<div class="gb_res_t"><span>确定付款</span><i></i></div>
+		<div class="payment-div-a">
+			<h3 class="yfje_all">&yen; <span><?php echo $free;?></span> 元</h3>
+			<h4>支付方式</h4>		
+			<div class="payment-div-b">
+				<p class="show_payment"><a href="javascript:void(0);" onclick="SetIndex(0);" class="a"></a></p>
+				<p class="show_payment"><a href="javascript:void(0);" onclick="SetIndex(1);" class="weixin a"></a></p>
+				<p class="show_payment"><a href="javascript:void(0);" onclick="SetIndex(2);" class="unionpay"></a></p>
+			</div>
+	
+			<a href="javascript:void(0);" class="con-btn zhifu-btn" onclick="SendPayinfo();">立即付款</a>			
+			<a href="javascript:void(0);" class="con-btn zhifu-btn" onclick="SendPayweixin();">立即付款</a>
+			<a href="javascript:void(0);" class="con-btn zhifu-btn" onclick="SendPayunionpay();">立即付款</a>
+			
+		</div>
+		<div class="outdiv">
+			<img src="<?php echo apth_url('subject/htx/images/icon-27.png');?>" alt="收起">
+		</div>	
+	</div>
+</div>
+<!-- 底部 菜单-->
+<?php require('menu.html');?>
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script>
+<script>
+var sum=1;
+var yen = "<?php echo $free;?>";
+//多选 
+$(".select_alls").click(function(){
+	if($(this).is(":checked"))
+	{//选中
+		$(".select_free_pay").css({"background":"#0a8ed8"});
+		$(".select_free_pay").find("span").text("√");
+		//获取金额
+		$.post("<?php echo apth_url('index.php');?>",{"act":"mGetJinErAll","consid":"<?php echo $consid;?>"},function(d){
+			$(".yfje_all").html("&yen; "+d+"元");
+			yen = d;
+		});
+		sum = $(".select_free_pay").length;
+	}
+	else
+	{//未选中
+		$(".select_free_pay").css({"background":"hsla(0, 9%, 91%, 0.64)"});
+		$(".select_free_pay").find("span").text("付");
+		$.post("<?php echo apth_url('index.php');?>",{"act":"mGetJinErAll","consid":""},function(d){
+			$(".yfje_all").html("&yen; "+d+"元");
+			yen = d;
+		});
+		sum=0;
+	}	
+});
+//单选
+$(".select_free_pay").each(function(index){
+	$(this).click(function(){		
+		if( $(".select_free_pay:eq("+index+")").find("span").text() == '付' ){
+			$(".select_free_pay:eq("+index+")").css({"background":"#0a8ed8"});
+			$(".select_free_pay:eq("+index+")").find("span").text("√");
+			//获取金额
+			sum = sum+1;
+			var numbers = $(this).find("a").text();
+			$.post("<?php echo apth_url('index.php');?>",{"act":"mGetJinErAll_once","consid":"<?php echo $consid;?>","numbers":numbers,"flag":"1","sum":sum,"free":"<?php echo $free;?>","data":'<?php echo json_encode($member_all);?>'},function(d){
+				$(".yfje_all").html("&yen; "+d+"元");
+				yen = d;
+			});			
+		}else{
+			$(".select_free_pay:eq("+index+")").css({"background":"hsla(0, 9%, 91%, 0.64)"});
+			$(".select_free_pay:eq("+index+")").find("span").text("付");
+			//获取金额
+			sum = sum-1;
+			var numbers = $(this).find("a").text();
+			$.post("<?php echo apth_url('index.php');?>",{"act":"mGetJinErAll_once","consid":"<?php echo $consid;?>","numbers":numbers,"flag":"2","sum":sum},function(d){
+				$(".yfje_all").html("&yen; "+d+"元");
+				yen = d;
+			});			
+		}
+		if( sum < $(".select_free_pay").length ){
+			$(".select_alls").removeAttr("checked");
+		}
+		if( sum == $(".select_free_pay").length ){
+			$(".select_alls").attr("checked","checked");
+		}
+	});
+});
+
+var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+if (ua.match(/MicroMessenger/i) == "micromessenger") 
+{
+  //在微信中打开
+	$(".show_payment").hide();
+	$(".show_payment:eq(1)").show();
+	$(".show_payment:eq(2)").show();
+	$(".zhifu-btn").hide();
+	$(".zhifu-btn:eq(1)").show();
+}
+else
+{
+	$(".show_payment").hide();
+	$(".show_payment:eq(0)").show();
+	$(".show_payment:eq(2)").show();
+	$(".zhifu-btn").hide();
+	$(".zhifu-btn:eq(0)").show();
+}
+//切换
+function SetIndex(i){
+	$(".payment-div-b a").removeClass('a');
+	$(".payment-div-b a:eq("+i+")").addClass('a');
+	$(".zhifu-btn").hide();
+	$(".zhifu-btn:eq("+i+")").show();
+}
+var boolstr = "<?php echo $boolstr;?>";
+//支付宝
+function SendPayinfo(){
+	if( boolstr == '' ){
+		layer.open({
+		    content: '请先登录'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	if( yen == 0 ){
+		layer.open({
+		    content: '请选择需要购买的章节'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	location.href="<?php echo apth_url('?act=AlipayVideoPage');?>";
+}
+//微信
+function SendPayweixin(){
+	if( boolstr == '' ){
+		layer.open({
+		    content: '请先登录'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	if( yen == 0 ){
+		layer.open({
+		    content: '请选择需要购买的章节'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	location.href="<?php echo apth_url('?act=weixinVideoment');?>";
+}
+//银联
+function SendPayunionpay(){
+	
+	layer.open({
+	    content: '银联未开通'
+	    ,skin: 'msg'
+	    ,time: 2
+	});
+	return false;
+	
+	if( boolstr == '' ){
+		layer.open({
+		    content: '请先登录'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	if( yen == 0 ){
+		layer.open({
+		    content: '请选择需要购买的章节'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	location.href="<?php echo apth_url('?act=VideoUnionpay');?>";
+}
+</script>
+</body>
+</html>

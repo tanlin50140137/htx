@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>"> 
+<title>发布手记文章</title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/personal-css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/personal/tab.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+</head>
+
+<body class="personal-body">
+<!-- 头部 -->
+<div class="headbox headbox-a">
+	<div class="return" data-ripple>返回</div>
+	<div class="location">发布手记</div>
+	<?php require('pic.html');?>
+</div>
+<!-- /头部 -->
+<div class="published-note">
+<form id="frmData">
+	<div class="bt-note">
+		<p class="bt-p">标题</p>
+		<input type="text" name="title" value="" class="input-text">
+		<h4><label><input type="checkbox" name="original" value="1" />原创请勾选 （原创内容可获得5积分，审核后发放）</label></h4>
+	</div>
+
+	<div class="bt-note">
+		<div class="picture-a note-note">
+			<div class="picture-btn">
+				<p class="Add_imgs">添加封面</p>				
+			</div>
+			<div class="note-img note-img-add"><input type="file" id="fileput1" class="fileput" onchange="previewImage(this)" style="display:none;"/></div>
+			<h4>最多可添加四张，封面为350*230像素的 PNG/JPG/GIF 格式图片</h4>
+		</div>
+	</div>
+
+	<div class="bt-note">
+		<p class="bt-p">输入内容</p>
+		<textarea name="body"></textarea>
+		<h4>当前已输入0个字符, 您还可以输入10000个字符。</h4>
+	</div>
+
+	<div class="bt-note">
+		<p class="bt-p">内容摘要</p>
+		<textarea name="description" class="textarea"></textarea>
+		<h4>请输入文章内容摘要，至少150个中文字长度</h4>
+	</div>
+
+	<div class="bt-note">
+		<div class="choose">
+			<p>请选择分类，最多可选1个</p>
+		</div>
+
+
+		<div class="search-classify">
+			<div class="classify-a">
+				<p class="classify-p">分类:</p>
+			    <select class="fl search-select classify-select" onchange="GetFl(this);">
+			        <option value="-1">请选择分类</option>
+<?php if(!empty($fl['rows'])){?>
+	<?php foreach($fl['rows'] as $k=>$v){?>
+			        <option value="<?php echo $v['id'];?>"><?php echo $v['name'];?></option>
+	<?php }?>		        
+<?php }?>
+			    </select>
+			</div>
+			
+			<div class="classify-a">
+				<p class="classify-p classify-p1">通用:</p>
+				<div class="upload-a upload-modify1"></div>
+			</div>
+		</div>
+	</div>
+    <input type="hidden" name="cipid" id="cipid" value=""/>
+    <input type="hidden" name="fhpid" id="fhpid" value=""/>
+    <input type="hidden" name="userid" value="<?php echo $member_all['tel'];?>"/>
+	<a href="javascript:void(0);" class="note-btn SendFrom_All">发布</a>
+</form>	
+</div>
+
+<div class="sm-div">
+	发布手记规范声明  
+</div>
+
+<div class="sm-div-box">
+	<ul>
+		<li>1、 手记至少200字以上，不允许手记内容全图；不允许为了达到文字字数发些与手记无关或者凑数的内容，否则火天信有权拒绝发布或者删除。</li>
+		<li>2、 不允许手记内容以软文形式打广告，或者个人签名下有聊天群号、昵称为聊天群号或者个人微信、微博、社区，手记图片有水印、手记加外链、 扫二维码以及个人头像为网站网址等，否则火天信有权利修改或者删除手记，或者冻结账号；</li>
+		<li>3、 内容方向：建筑工程、财务会计、评估服务、房地产、建筑BIM、建筑职业考试、建筑技能培训、工作经验，职场生活等。</li>
+		<li>4、正文配图务必从本地 上传，并保证清晰（目前不支持直接复制粘贴图片，尤其是微信公众号图片，图片格式最好jpg、jpeg、png、gif等,大小最好不超过2M。）</li>
+		<li>5、内容质量：鼓励原创，每篇原创手记可以获得5积分，作品展示、图纸案例、职场生活类均可。</li>
+		<li>6、审核时间： 火天信会在工作日48小时内审核通过。</li>
+		<li class="li"></li>
+	</ul>
+</div>
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script>
+<script>
+/*历史返回*/
+$('.return').click(function(){
+	history.go(-1);
+});
+//大类
+function GetFl(t){
+	var id = $(t).val();
+	if(id != '-1' ){		
+		$.post("<?php echo apth_url('index.php');?>",{"act":"getzfl","id":id},function(data){
+			var obj = eval("("+data+")");
+			var len = obj.rows.length;
+			var html = '';
+			$(".upload-modify1").empty();
+			for(var i=0;i<len;i++){
+				html += '<a href="javascript:void(0);" data-sid="'+obj.rows[i].id+'" onclick="select_id(this);">'+obj.rows[i].name+'</a>';
+			}
+			$(".upload-modify1").append(html);
+			$("#fhpid").val(id);
+		});
+	}else{
+		$(".upload-modify1").empty();
+	}
+		
+}
+//小类
+function select_id(t){
+	var id = $(t).attr("data-sid");
+	$(".upload-modify1 a").removeClass('a');
+	$(t).addClass('a');
+	$("#cipid").val(id);
+}
+var flag_user = "<?php echo $member_all['tel'];?>";
+//个人提交表单
+$(function(){
+	$(".SendFrom_All:eq(0)").click(function(){
+		
+		var files_obj = document.getElementById("fileput1").files[0];
+		
+		 if(flag_user == ''){
+			 layer.open({
+				    content: '请先登录'
+				    ,skin: 'msg'
+				    ,time: 2
+				});	
+			 return false;
+		 }
+		 if($("[name='title']").val() == ''){
+			 layer.open({
+				    content: '标题不能留空'
+				    ,skin: 'msg'
+				    ,time: 2
+				});	
+			 return false;
+		 }
+		 if(files_obj == undefined){
+			 layer.open({
+				    content: '请上传封面'
+				    ,skin: 'msg'
+				    ,time: 2
+				});	
+			 return false;
+		 }
+		 if($("[name='body']").val() == ''){
+			 layer.open({
+				    content: '输入内容'
+				    ,skin: 'msg'
+				    ,time: 2
+				});	
+			 return false;
+		 }
+		 if($(".textarea").val() == ''){
+			 layer.open({
+				    content: '请输入内容摘要'
+				    ,skin: 'msg'
+				    ,time: 2
+				});	
+			 return false;
+		 }
+		 if($("[name='fhpid']").val() == ''){
+			 layer.open({
+				    content: '请输入选择分类'
+				    ,skin: 'msg'
+				    ,time: 2
+				});	
+			 return false;
+		 }
+		 if($("[name='cipid']").val() == ''){
+			 layer.open({
+				    content: '请输入子分类'
+				    ,skin: 'msg'
+				    ,time: 2
+				});	
+			 return false;
+		 }
+		 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+		 var formData = new FormData();
+		 formData.append("act", "mReleaseNotes");
+		 formData.append("userid", $("[name='userid']").val());	 
+		 formData.append("fhpid", $("[name='fhpid']").val());
+		 formData.append("cipid", $("[name='cipid']").val());
+		 formData.append("description", $(".textarea").val());
+		 formData.append("body", $("[name='body']").val());
+		 formData.append("title", $("[name='title']").val());		 
+         formData.append("file", document.getElementById("fileput1").files[0]);        
+         $.ajax({
+             url: "<?php echo EXTLINK;?>",
+             type: "POST",
+             data: formData,
+             contentType: false,
+             processData: false,
+             success:function(data){
+            	 //console.log(data);
+            	 var obj = eval("("+data+")");
+            	 if( obj.error == 0 ){
+            		 layer.open({
+      				    content: '发布成功等待审核'
+      				    ,skin: 'msg'
+      				    ,time: 2
+      				    ,end:function(emd){
+      				    	$(".upload-modify1").empty();
+      				    	$("#fhpid").val('');
+      				    	$("#cipid").val('');
+      				    	$(".note-img-add").html('<input type="file" id="fileput1" class="fileput" onchange="previewImage(this)" style="display:none;"/>');
+      				    	$("#frmData")[0].reset();
+      				    }
+      				});
+            	 }else{
+            		layer.open({
+     				    content: obj.txt
+     				    ,skin: 'msg'
+     				    ,time: 2
+     				});
+            	 }
+             }
+         });
+         return false;
+	});
+});
+//添加封面
+var i=0;
+var imgobj = '';
+$(function(){
+	var html = '';
+	$(".Add_imgs").click(function(){
+		if(i<1){//只能生成四个封面
+			html += '<div class="picture-img">';
+			html += '<img src="<?php echo apth_url('subject/htx/images/zn1.jpg');?>" onclick="imgFileBox('+i+');" alt="封面1" class="htx-imgs-f" style="width:140px;height:92px;">';
+			html += '<input type="file" id="fileput1" class="fileput" onchange="previewImage(this)" style="display:none;"/>';
+			html += '</div>';
+			$(".note-img-add").append(html);
+			imgobj = $(".htx-imgs-f:eq("+i+")")[0];
+			$(".fileput:eq("+i+")").click();
+		}
+		i++;
+	});
+});
+function imgFileBox(i){
+	$(".fileput:eq("+i+")").click();
+}
+function previewImage(file){
+	if(file.files && file.files[0]){
+		var img = imgobj;
+		var reader = new FileReader(),rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;;  				
+		
+		var size = file.size;
+		var Max_Size = 2000*1024;
+		var width,height;
+		var image = new Image();
+				
+		reader.onload = function(evt){
+			img.src=evt.target.result;
+			
+			var data = evt.target.result;
+			 image.onload=function(){
+				width = image.width;
+				height = image.height;
+				/*
+				if(width>img.width && height>img.height){ 
+					alert("图片宽高不符合要求 NO."+(i+1)+" 请上传宽高"+img.width+"*"+img.height+"像素图片");
+				}	
+				*/
+			};
+			image.src= data;			 
+		} 		
+	
+	    if(!rFilter.test(file.files[0].type)) { alert("照片格式不正确 "); return; }	
+	    if(size>Max_Size){ alert("照片大小不能超出2M"); return; }
+	    
+	    reader.readAsDataURL(file.files[0]);
+    }	    
+}
+</script>
+</body>
+</html>

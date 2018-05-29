@@ -1,0 +1,651 @@
+
+
+html {
+    -webkit-text-size-adjust: 100%;
+}
+
+
+body {
+    margin: 0;
+    max-width: 750px;
+    min-height: 100%;
+    margin: 0 auto;
+    background-color: #f3f3f3;
+    -webkit-overflow-scrolling: touch;
+    -webkit-tap-highlight-color:rgba(0,0,0,0);
+    padding-bottom: 3.5rem;
+}
+
+
+/*
+    head
+ */
+
+
+.headbox{
+    background: #fff;
+    padding: 0.5rem 0;
+    width: 100%;
+    background-size: 100%;
+
+}
+
+.headdiv{
+    width: 96%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.logo{
+    float: left;
+    max-width: 5rem;
+}
+
+
+.logo img{
+    width: 100%;
+}
+
+.search-box10{
+    background-color: #fff;
+    padding: 0.5rem 0;
+}
+
+.search{
+    width: 80%;
+    height: 2rem;
+    line-height: 2rem;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    background: #f0f2f5;
+    margin: 0 auto;
+    border-radius: 40px;
+}
+
+.search a{
+    width: 100%;
+    background-color: inherit;
+    border: none;
+    text-indent: 4.6rem;
+    font-size: 0.7rem;
+    color: #999;
+    z-index: 9;
+    background:url(../images/icon-01.png) no-repeat 2.2rem center/0.9rem;
+}
+
+.head-portrait{
+    float: right;
+}
+
+.head-portrait a{
+    display: block;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+
+.head-portrait img{
+    margin: 0 auto;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+}
+
+/*
+    /--head
+ */
+
+
+
+/*
+    轮播
+ */
+
+.banner{ 
+    max-width:750px;
+    margin:auto; 
+}
+
+ ul.flash{ 
+    width:100%; 
+    margin:0px; 
+    padding:0px; 
+    background:#5e94c5;
+}
+
+.more{ width:100%; background:#5e94c5; overflow:hidden;
+}
+
+.more a{ color:#FFF; display:block; float:right; margin-right:15px; padding:8px 0px;
+}
+
+.guang{ 
+    width:100%; 
+}
+
+ul.menu{ 
+    width:90%; 
+    margin:10px auto;  
+    overflow:hidden;  
+    padding:0px;
+}
+
+ul.menu li{ 
+    width:33.3%; 
+    float:left; 
+    margin-top:25px;
+}
+
+ul.menu li img{ 
+    width:50%; 
+    display:block; 
+    margin:auto;
+}
+
+ul.menu li p{ 
+    text-align:center; 
+    color:#5c5a5b; 
+    margin-top:5px;
+}
+
+ul.menu li p span{ 
+    color:#4d4c4a; 
+    font-weight:bold;
+}
+
+
+/*
+    /--轮播
+ */
+
+
+
+/*
+   底部菜单 
+ */
+
+.footer-menu{
+    position: fixed;
+    bottom: 0;
+    z-index: 99;
+    width: 100%;
+    max-width: 750px;
+    -webkit-box-shadow: 0 -1px 4px rgba(0, 0, 0, .2);
+    box-shadow: 0-1px 4px rgba(0, 0, 0, .2);
+    background-color: #fff;
+
+}
+
+.footer-menu-ul{
+    padding: 0.5rem 0 0.2rem;
+    overflow: hidden;
+    background-color: #d43d3d;
+}
+
+.more-ul{
+    padding: 1.1rem 0 1rem !important;
+    background-color: #fff;
+}
+
+
+.footer-menu-ul li{
+    width: 20%;
+    float: left;
+    text-align: center;
+}
+
+.footer-menu-ul li a{
+    color: #fff;
+    opacity: 0.8;
+}
+
+.more-ul li a{
+    color: #000;
+    opacity: 0.4;
+}
+
+.footer-menu-ul li p{
+    font-size: 0.65rem;
+    margin-top: 0.2rem;
+}
+
+.footer-menu-ul img{
+    margin: 0 auto;
+    max-width: 1.3rem;
+
+}
+
+.footer-menu-ul li .a{
+    opacity: 1;
+}
+
+
+.menu-message{
+    position: relative;
+}
+
+.menu-message b{
+    position: absolute;
+    top: 0rem;
+    z-index: 999;
+    right: 1.2rem;
+    width: 0.3rem;
+    height: 0.3rem;
+    background-color: #dae43b;
+    border-radius: 50%;
+    color: #dae43b;
+    font-size: 0px;
+}
+
+
+/*
+    
+ */
+
+.headbox-a{
+    min-height: 2rem;
+    padding-top: inherit;
+    background: inherit;
+    background-color: #d43d3d;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+
+.headbox-a .head-portrait{
+    margin-top: 0.4rem;
+}
+
+
+@media screen and (max-width:450px){ 
+
+.headbox{
+    padding: 0.3rem 0;
+
+}
+
+.logo{
+    float: left;
+    max-width: 5.4rem;
+}
+
+
+
+.headbox-a{
+    min-height: 2.5rem;
+    padding-top: inherit;
+}
+
+
+
+.search-btn img {
+    margin-top: 0.5rem;    
+    max-width: 0.7rem;
+}
+
+.search-btn {
+    left: 1.2rem;
+}
+
+.head-portrait img,
+.head-portrait a {
+    width: 1.5rem;
+    height: 1.5rem;
+
+}
+
+.head-portrait {
+    margin-top: 0.1rem;
+    margin-right: 0.3rem;
+}
+
+.message-text-1{
+    margin-top: 3.5rem;
+}
+
+/*
+    菜单
+ */
+
+.ul-menu li img {
+    max-width: 1.6rem;
+}
+.ul-menu li a p {
+    margin-left: -0.4rem; 
+}
+
+.ul-menu li a {
+    line-height: 1.5rem;
+    font-size: 0.75rem;
+}
+
+.ul-project-img img {
+    max-width: 1.75rem;
+}
+
+.ul-project h3 {
+    font-size: 0.75rem;
+}
+
+.ul-project a {
+    line-height: 1.8rem;
+}
+
+.ul-project {
+    width: 90%;
+}
+
+.tab dl dt {
+    width: 17%;
+    margin: 0 4%;
+    font-size: 0.75rem;    
+    line-height: 2.6rem;
+    height: 2.4rem;
+}
+
+.ul-learn .middle h3 {
+    font-size: 0.75rem;
+}
+
+.middle1 {
+    width: 40%;
+}
+
+.learn-btn {
+    width: 2.5rem;
+    line-height: 1.5rem;
+    height: 1.3rem;
+    margin-top: 0.5rem;
+    font-size: 0.65rem;
+}
+
+.learn-btn img {
+    margin-top: 0.36rem;
+}
+
+.tab-div li {
+    overflow: hidden;
+    border-top: 1px #f3f3f3 solid;
+    padding: 0.7rem 0;
+}
+
+.ul-project p {
+    font-size: 0.65rem;
+    opacity: 0.6;
+
+}
+
+.ul-learn .ul-learn-a {
+    width: 25%;
+}
+
+.ul-learn .middle b,
+.ul-learn .middle span {
+    font-size: 0.65rem;
+}
+
+.ul-learn .middle section{
+    margin-top: inherit;
+}
+
+.ul-learn .middle1 {
+    width: 10rem;
+}
+
+.ul-learn .middle1 section{ 
+    margin-top: 0.1rem;
+}
+
+.ul-learn .right {
+    font-size: 0.7rem;
+}
+
+.ul-learn .ul-learn-a b {
+    bottom: 0.06rem;
+    right: 0.06rem;
+    font-size: 0.4rem;
+    line-height: 0.6rem;
+    height: 0.5rem;
+    padding: 0 0.2rem;
+}
+
+
+
+/*
+    底部
+ */
+
+.footer-menu-ul img{
+    max-width: 1rem;
+}
+
+.more-top section h3 {
+    font-size: 0.7rem;
+}
+
+.more-top section p {
+    font-size: 0.6rem;
+    color: #979797;
+}
+
+.more-portrait{
+    margin-top: 0.2rem;
+}
+
+.more-top1 .more-portrait1 {
+    margin-top: 0.3rem;
+}
+
+
+/*
+    dingbu
+ */
+.return{
+    padding: 1.2rem 0;
+    padding-left:1.4rem;
+}
+
+.return:before{    
+    top: 1.4rem;
+}
+
+.personal-head-a .personal-fh:before {
+    top: 1.1rem;
+}
+
+.location{
+    transform: translate3d(-50%, 0.6rem, 0);
+    font-size: 0.9rem;
+}
+
+.classify-ul a p {
+    float: left;
+    font-size: 0.75rem;
+    margin-left: 1rem;
+}
+
+.more-btn a, 
+.classify1-ul li a{
+    height: 1.8rem;
+    line-height: 1.8rem;
+}
+
+.deta-tit h3{
+    font-size: 0.8rem;
+}
+
+.deta-text p{
+    font-size: 0.7rem;
+    line-height: 1.2rem;
+}
+
+.section-ul li{
+    width:1.8rem;
+    height: 1.8rem;
+    line-height: 1.8rem;
+}
+
+.section-ul li{
+    width:1.8rem !important;
+    height: 1.8rem !important;
+    line-height: 1.8rem !important;
+}
+.gb_res_t span { background: #FFF; display: inline-block; padding: 0px 0.4rem; position: relative; z-index: 2; font-size: 0.9rem;}
+
+
+.gb_resItms li { width: 33.3%;}
+
+.payment-div-a h3{
+    font-size: 1.3rem;
+    line-height: 1.5rem;
+}
+
+.selected:before{
+    bottom: -0.7rem;
+}
+
+.ask-div-a .swiper-slide{
+    margin-right: 0.2rem !important;
+    width:62px !important;
+}
+
+.my-pagination .swiper-pagination-bullet-active,
+.my-pagination li {
+    height: 2.4rem; 
+    line-height: 2.4rem; 
+    font-size: 0.8rem;
+}
+
+#logo img{
+    max-width: 5rem;
+}
+
+.strong-portrait{
+    width: 3rem;
+    height: 3rem;
+}
+
+.personal-head-b{
+    padding-top: 0.6rem;
+    margin-top: 0.6rem;
+}
+
+.personal-head-a p{
+    font-size: 1rem;
+}
+
+.personal-head-a{
+    padding: 0.5rem 0;
+}
+
+.ul-learn .middle b{
+    display: block;
+}
+
+.dynamic-ul .middle {
+    width: 50%;
+}
+
+.ul-learn-10 .ul-learn-a {
+    width: 36%;
+}
+
+
+
+/*
+    450
+ */
+
+}
+
+
+
+
+
+@media screen and (max-width:350px){ 
+.ul-menu li img {
+    margin:0 0.8rem ;
+}
+
+.tab dl dt {
+    width: 20%;
+    margin: 0 2%;
+}
+
+
+.head-portrait img, .head-portrait a {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.ul-learn .middle section {
+    margin-top: 0rem;
+}
+.ul-learn .middle1 section {
+    margin-top: inherit;
+}
+
+.more-btn a {
+    background: url(../images/icon-11.png) no-repeat 6rem;
+    background-size: 0.6rem;
+}
+
+.set-up-ul li textarea{
+    width: 82%;
+}
+
+.strong-portrait {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+.personal-head-b {
+    padding-top: 0.3rem;
+    margin-top: 0.3rem;
+}
+
+.process-li-fr {
+    width: 85%;
+    margin-left: 0.4rem;
+}
+
+.nav-meun .swiper-slide a {
+    font-size: 0.62rem;
+}
+
+.menu-message b {
+    right: 1rem;
+}
+
+.nfor-ul-fl {
+    width: 25%;
+}
+
+.note1-2 {
+    font-size: 0.6rem;
+}
+
+.login_bg form {
+    width: 90%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    350
+ */
+}
+
+
+
+

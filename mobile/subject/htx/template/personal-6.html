@@ -1,0 +1,462 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport"/>
+<meta name ="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge ,chrome=1" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title><?php echo $global['title'];?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/personal-css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/personal.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<script src="<?php echo apth_url('subject/htx/js/jquery.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/personal/personal.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/personal/tab.js');?>"></script> 
+</head>
+
+<body class="personal-body">
+
+<div class="personal-head personal-head-a">
+	<div class="personal-fh" onclick="return_bak();" data-ripple></div>
+	<p>个人设置</p>
+</div>
+
+<div class="set-up-div">
+	<ul class="widthdiv set-up-ul">
+		<li>
+			<p>账户昵称</p>
+			<input type="text" name="username" value="<?php echo $member_all['username'];?>" class="input">
+		</li>
+		<li class="li-associa">
+			<p class="gl-btn">关联</p>
+			<dl class="associa-dl">
+				<dd class="widthdiv associa-dd">
+					<h3 class="fl">
+						<span><?php echo $member_all['tel']==null?'手机号':$member_all['tel'];?></span>
+					<?php if($member_all['tel']==null){?>	
+						<span class="span span10">未绑定</span>
+					<?php }else{?>
+						<span class="span span10" style="color:#41b341;">已绑定</span>
+					<?php }?>	
+						<!-- <input type="text" name="tel" value="<?php echo $member_all['tel'];?>" placeholder="输入手机号" class="input-a"> -->
+					</h3>
+					<?php if($member_all['tel']==null){?>
+						<a href="javascript:void(0);" class="fr associa-a-btn" onclick="bind_tel();">绑定</a>
+					<?php }?>
+										
+				</dd>
+
+				<dd class="widthdiv">
+					<h3 class="fl">
+						<span><?php echo $member_all['email']==null?'邮箱':$member_all['email'];?></span>						
+					<?php if($member_all['email']==null){?>	
+						<span class="span">未绑定</span>
+					<?php }else{?>
+						<span class="span" style="color:#41b341;">已绑定</span>
+					<?php }?>	
+						<!-- <input type="text" name="email" value="<?php echo $member_all['email'];?>" placeholder="输入邮箱" class="input-a"> -->
+					</h3>
+					<?php if($member_all['email']==null){?>
+						<a href="javascript:void(0);" class="fr associa-a-btn" onclick="bind_email();">绑定</a>
+					<?php }?>
+				</dd>
+			</dl>
+		</li>
+
+		<li>
+			<p>是否显示昵称</p>
+			<div class="wrap fr">
+				<input type="checkbox" name="account" <?php echo $member_all['account']==1?'checked="checked"':'';?> value="<?php echo $member_all['account'];?>" id="checkbox_c1" class="chk_3" />
+				<label for="checkbox_c1" onclick="set_name(this);"></label>
+			</div>
+		</li>
+
+		<li class="name-li">
+			<p>真实姓名:<span><input type="text" name="useras" value="<?php echo $member_all['useras'];?>" class="input" style="float:inherit;text-align:left;"></span></p>
+			<div class="wrap fr">
+				<input type="checkbox" name="secrecy" <?php echo $member_all['secrecy']==1?'checked="checked"':'';?> value="<?php echo $member_all['secrecy'];?>" id="checkbox_c2" class="chk_3" />
+				<label for="checkbox_c2" onclick="set_name_show(this);"></label>
+			</div>
+		</li>
+
+		<li class="name-li">
+			<p>性别</p>
+			<div class="fr gender">
+				<a href="javascript:void(0);" onclick="GetSex(this,1);"><span <?php echo $member_all['sex']==1?'class="span"':'';?> ></span>男</a>
+				<a href="javascript:void(0);" onclick="GetSex(this,2);"><span <?php echo $member_all['sex']==2?'class="span"':'';?> ></span>女</a>
+				<input type="hidden" name="sex" value="<?php echo $member_all['sex'];?>"/>
+			</div>
+		</li>
+
+		<li>
+			<p>简介</p>
+			<textarea name="abstract"><?php echo $member_all['abstract'];?></textarea>
+			<b class="b1">最多可输入500个字符，支持中文、英文</b>
+		</li>
+
+		<li>
+			<p>签名</p>
+			<textarea name="autograph"><?php echo $member_all['autograph'];?></textarea>
+			<b class="b1">最多可输入255个字符，支持中文、英文</b>
+		</li>
+	</ul>
+	<input type="hidden" name="userid" value="<?php echo $member_all['id'];?>"/>
+	<input type="hidden" name="act" value="mPersonalSettings"/>
+	<a href="javascript:void(0);" class="con-btn associa-btn1" onclick="Preservation();">保存</a>
+</div>
+
+<?php require('menu.html');?>
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script> 
+<script>
+var s=60,inval='';
+var boolstr = "<?php echo $boolstr;?>";
+//提交绑带
+function bindSend(t){
+	if( boolstr == '' ){
+		layer.open({
+			 content: '请先登录'
+			,skin: 'msg'
+			,time: 2
+		});
+		return false;
+	}
+	var email = $("[name='email']").val();
+	if( email == '' ){
+		$(".tishi").html('<font color="red">请输入邮箱地址</font>');
+		return false;
+	}else{
+		$(".tishi").html('');
+	}
+	var virify = $("[name='virify']").val();
+	if( virify == '' ){
+		$(".tivry").html('<font color="red">请输入验证码</font>');
+		return false;
+	}else{
+		$(".tivry").html('');
+	}
+	
+	//提交
+	var formData = new FormData();
+	formData.append("act", "mMailVerification_post");
+	formData.append("email", email);	 
+	formData.append("virify", virify);
+	formData.append("user_id", "<?php echo $boolstr['username'];?>");
+    $.ajax({
+        url: "<?php echo apth_url('index.php');?>",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success:function(data){
+        	//console.log(data);return false;
+       	 	var obj = eval("("+data+")");
+			if( obj.error == 0 ){				
+				layer.open({
+					 content: obj.txt+'。'
+					,skin: 'msg'
+					,time: 2
+					,end:function(){
+						location.reload();
+					}
+				})
+			}else{
+				layer.open({
+					 content: obj.txt
+					,skin: 'msg'
+					,time: 2
+				})
+			}
+        }
+    });	
+}
+//获取验证码
+function mGetvry(){
+	var email = $("[name='email']").val();
+	if( email == '' ){
+		$(".tishi").html('<font color="red">请输入邮箱地址</font>');
+		return false;
+	}else{
+		$(".tishi").html('');
+	}
+	//获取邮箱验证码
+	$.ajax({
+		url:'<?php echo apth_url("index.php");?>',
+		type:'post',
+		data:'act=mMailVerification&email='+email+'&flag=1',
+		beforeSend:function(){
+			inval = setTimeout(GetS,1000);
+			$(".btn_all").hide();
+			$(".btn_all:eq(1)").show();
+		},   
+		success:function(msg){
+			var obj = eval("("+msg+")");
+			if( obj.msg != 'OK' ){
+				layer.open({
+					   content: obj.txt
+					  ,skin: 'msg'
+					  ,time: 2
+				});
+			}			
+		}
+	});
+}
+//读秒
+function GetS(){
+	$(".btn_all:eq(1)").val('已发送（'+s+'）');
+	if(s<=0){
+		clearInterval(inval);
+		$(".btn_all").hide();
+		$(".btn_all:eq(0)").show();
+		s=60
+	}
+	s--;
+	inval = setTimeout(GetS,1000);
+}
+//点击绑定按钮
+function bind_email(){		
+	var html  = '';
+		html += '<div class="layui-bd-li">';
+		html += '<p><span>邮箱地址：</span><input type="text" name="email" value="" style=""/></p>';
+		html += '<p class="tishi" style="margin-top:0.2rem;"></p>';
+		html += '<p style="margin-top:20px;">';
+		html += '<span>验 &nbsp;证 &nbsp;码：</span><input type="text" name="virify" value="" style="" class="width60"/>';
+		html += ' &nbsp; <input type="button" value="获取验证码" onclick="mGetvry();" class="btn_all width30" style=""/><input type="button" value="已发送（60）" class="btn_all width30" style="display:none;"/>';
+		html += '</p>';
+		html += '<p class="tivry"style="margin-top:0.2rem;"></p>';
+		html += '<p style="margin-top:20px;">';
+		html += '<input type="button" value="点击绑定邮箱" onclick="bindSend(this);" style=""/ class="tj-button">';	
+		html += '</p></div>';
+		
+	layer.open({
+	    title: [
+	      '绑定邮箱'
+	    ]
+		,className:'popuo-login1'
+	    ,content: html
+	});
+}
+function return_bak(){
+	location.href="<?php echo apth_url('?act=mypersonal');?>"
+}
+var i=0;
+function set_name(t){
+	if( $("[name='account']").val() == 1){
+		$("[name='account']").val('0');
+	}else{
+		$("[name='account']").val('1');
+	}
+	i++;
+}
+var h=0;
+function set_name_show(t){
+	if( $("[name='secrecy']").val() == 1 ){
+		$("[name='secrecy']").val('0');
+	}else{
+		$("[name='secrecy']").val('1');
+	}
+	h++;
+}
+function GetSex(t,f){
+	$("[name='sex']").val(f);
+}
+//保存
+function Preservation(){
+	if( $("[name='username']").val() == '' ){
+		layer.open({
+			   content: '账户昵称不能留空'
+			  ,skin: 'msg'
+			  ,time: 2
+		});
+		return false;
+	}
+	if( $("[name='sex']").val() == 0 ){
+		layer.open({
+			   content: '请选择性别'
+			  ,skin: 'msg'
+			  ,time: 2
+		});
+		return false;
+	}
+	//提交
+	var formData = new FormData();
+	formData.append("act", $("[name='act']").val());
+	formData.append("userid", $("[name='userid']").val());	 
+	formData.append("username", $("[name='username']").val());
+	formData.append("account", $("[name='account']").val());
+	formData.append("useras", $("[name='useras']").val());
+	formData.append("sex", $("[name='sex']").val());
+	formData.append("abstract", $("[name='abstract']").val());
+	formData.append("autograph", $("[name='autograph']").val());
+	formData.append("secrecy", $("[name='secrecy']").val());
+    $.ajax({
+        url: "<?php echo EXTLINK;?>",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success:function(data){
+	       	 var obj = eval("("+data+")");
+	       	 if( obj.error == 0 ){       		
+	       		getuserinfo(data);
+	       	 }else{
+	       		 layer.open({
+	       			   content: obj.txt
+	       			  ,skin: 'msg'
+	       			  ,time: 2
+	       		});
+	       	 }
+        }
+    });
+}
+function getuserinfo(data){
+	$.post("<?php echo apth_url('index.php');?>",{"act":"SetUserInfo","data":data},function(d){
+		if( d == 'OK' ){
+			 layer.open({
+				   content:'保存成功'
+				  ,skin: 'msg'
+				  ,time: 2
+				  ,end:function(){
+					  location.reload();
+				  }
+			});
+		}
+	});
+}
+//绑定手机
+function bind_tel(){
+	var html  = '';
+	html += '<div class="layui-bd-li">';
+	html += '<p><span>手机号码：</span><input type="text" name="tel" value="" style=""/></p>';
+	html += '<p class="tishi_tel"style="margin-top:0.2rem;"></p>';
+	html += '<p style="margin-top:20px;">';
+	html += '<span>验 &nbsp;证 &nbsp;码：</span><input type="text" name="virify" value="" style=""/ class="width60">';
+	html += '<input type="button" value="获取验证码" onclick="mGetvryTel();" class="btntel_all width30" style=""/><input type="button" value="已发送（60）" class="btntel_all width30" style=" display:none"/>';
+	html += '</p>';
+	html += '<p class="tivry_tel"style="margin-top:0.2rem;"></p>';
+	html += '<p style="margin-top:20px;">';
+	html += '<input type="button" value="点击绑定手机" onclick="bindSendTel(this);" style=""/ class="tj-button">';		
+	html += '</p></div>';	
+	layer.open({
+	    title: [
+	      '绑定手机号'
+	    ]
+		,className:'popuo-login1'
+	    ,content: html
+	});
+}
+//获取验证码
+function mGetvryTel(){
+	var tel = $("[name='tel']").val();
+	if( tel == '' ){
+		$(".tishi_tel").html('<font color="red">请输入手机号码</font>');
+		return false;
+	}else{
+		$(".tishi_tel").html('');
+	}
+	//获取邮箱验证码
+	$.ajax({
+		url:'<?php echo apth_url("index.php");?>',
+		type:'post',
+		data:'act=mSMS_Code&tel='+tel+'&flag=1',
+		beforeSend:function(){
+			inval = setTimeout(GetSTel,1000);
+			$(".btntel_all").hide();
+			$(".btntel_all:eq(1)").show();
+		},   
+		success:function(msg){
+			var obj = eval("("+msg+")");
+			if( obj.msg != 'OK' ){
+				layer.open({
+					   content: obj.txt
+					  ,skin: 'msg'
+					  ,time: 2
+				});
+			}
+		}
+	});
+}
+//读秒
+function GetSTel(){
+	$(".btntel_all:eq(1)").val('已发送（'+s+'）');
+	if(s<=0){
+		clearInterval(inval);
+		$(".btntel_all").hide();
+		$(".btntel_all:eq(0)").show();
+		s=60
+	}
+	s--;
+	inval = setTimeout(GetSTel,1000);
+}
+//提交绑定
+function bindSendTel(t){
+	if( boolstr == '' ){
+		layer.open({
+			 content: '请先登录'
+			,skin: 'msg'
+			,time: 2
+		});
+		return false;
+	}
+	var tel = $("[name='tel']").val();
+	if( tel == '' ){
+		$(".btntel_all").html('<font color="red">请输入邮箱地址</font>');
+		return false;
+	}else{
+		$(".btntel_all").html('');
+	}
+	var virify = $("[name='virify']").val();
+	if( virify == '' ){
+		$(".tivry_tel").html('<font color="red">请输入验证码</font>');
+		return false;
+	}else{
+		$(".tivry_tel").html('');
+	}
+	
+	//提交
+	var formData = new FormData();
+	formData.append("act", "mBindTel");
+	formData.append("tel", tel);	 
+	formData.append("virify", virify);
+	formData.append("user_id", "<?php echo $boolstr['username'];?>");
+    $.ajax({
+        url: "<?php echo apth_url('index.php');?>",
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        success:function(data){
+        	//console.log(data);return false;
+       	 	var obj = eval("("+data+")");
+			if( obj.error == 0 ){				
+				layer.open({
+					 content: obj.txt+'。'
+					,skin: 'msg'
+					,time: 2
+					,end:function(){
+						location.reload();
+					}
+				})
+			}else{
+				layer.open({
+					 content: obj.txt
+					,skin: 'msg'
+					,time: 2
+				})
+			}
+        }
+    });	
+}
+</script>  
+</body>
+</html>

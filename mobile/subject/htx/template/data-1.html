@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport"/>
+<meta name ="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge ,chrome=1" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title><?php echo $global['title'];?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/banner.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<script src="<?php echo apth_url('subject/htx/js/jquery.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/amazeui.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/common.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+</head>
+<body>
+<!-- 头部 -->
+<?php require('header2.html');?>
+<!-- /头部 -->
+
+<!-- 搜索区域 -->
+<div class="search-area widthdiv">
+	<p class="fl">搜索区域</p>
+    <select class="fl fl_select search-select">  
+        <option value="all" <?php echo $area=='all'?'selected="selected"':'';?> >全部</option>      
+        <option value="ty" <?php echo $area=='ty'?'selected="selected"':'';?> >通用</option>        
+<?php if(!empty($eara)){?>
+	<?php foreach($eara as $k=>$v){?>
+        <option value="<?php echo $v['aid'];?>"  <?php echo $area==$v['aid']?'selected="selected"':'';?> ><?php echo $v['areaname'];?></option>
+    <?php }?>
+<?php }?>
+    </select>
+	
+	<a href="javascript:void(0);" class="fl con-btn">确定</a>
+</div>
+
+<ul class="classify1-ul">
+			<li><a href="javascript:void(0);" data-idins="all" <?php echo $pid==''?'class="a"':'';?> >全部</a></li>
+<?php if(!empty($fl)){?>
+	<?php foreach($fl as $k=>$v){?>
+		<?php if( $pid == $v['id'] ){?>
+			<li><a href="javascript:void(0);" data-idins="<?php echo $v['id'];?>" class="a"><?php echo $v['name'];?></a></li>
+		<?php }else{?>
+			<li><a href="javascript:void(0);" data-idins="<?php echo $v['id'];?>"><?php echo $v['name'];?></a></li>
+		<?php }?>
+	<?php }?>
+<?php }?>
+</ul>
+
+<div class="tab-div classify1-content">
+	<ul class="ul-learn">
+<?php if($DataList['rows']!='end'){?>
+	<?php foreach($DataList['rows'] as $k=>$v){$j = ParsingJson($v['coverapth']);?>
+		<li> 
+			<a href="<?php echo apth_url('?act=data_content&consid='.$v['id']);?>" class="ul-learn-a">
+				<img src="<?php echo get_pixels($DataList['link1'].$j[0],350,230);?>" alt="<?php echo $v['title'];?>">
+			</a>
+			<div class="middle">
+				<h3><a href="<?php echo apth_url('?act=data_content&consid='.$v['id']);?>"><?php echo subString($v['title'],11);?></a></h3>
+				<section>
+					<span><?php echo $v['statefile']==1?'通用':$v['areasmax'];?></span>
+					<span><?php echo $v['flname'];?></span>
+					<b><?php echo $v['integral']!=0?'&yen;'.$v['integral']:'免费';?></b>
+				</section>
+			</div>
+			<a href="<?php echo apth_url('?act=data_content&consid='.$v['id']);?>" class="learn-btn">下载</a>
+		</li>
+	<?php }?>	
+<?php }else{?>
+			<li style="line-height:50px;text-align:center;color:#999999;">对不起，没有找到符合条件的资料！</li>
+<?php }?>		
+	</ul>
+</div>
+
+<?php if($DataList['rows']!='end'){?>
+	<div class="content-width con-main more-btn">
+		<a href="javascript:void(0);" class="link-looks" style="display:none;">
+			<img src="<?php echo apth_url('subject/htx/images/htx_loading.gif');?>" class="loading_gd" align="absmiddle" style="display:inline;width:15px;" alt="加载更多"/> 加载更多
+		</a>
+		<a href="javascript:void(0);" class="link-looks">加载更多</a>
+		<a href="javascript:void(0);" class="link-looks" style="display:none;">加载完毕</a>
+	</div>
+<?php }?> 
+<!-- 底部 菜单-->
+<?php require('menu.html');?>
+
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script> 
+<script>
+$(function(){
+	$(".con-btn").click(function(){
+		var area = $(".fl_select").val();	
+		window.location.href="<?php echo apth_url('?act=data_list&id='.$id.'&pid='.$pid.'&area="+area+"');?>";
+	});
+	
+	$(".classify1-ul li a").each(function(index){
+		$(this).click(function(){
+			$(".classify1-ul li a").removeClass('a');
+			$(this).addClass('a');
+			
+			var pid = $(this).attr('data-idins');
+			var area = $(".fl_select").val();
+			if( pid == 'all' )
+			{
+				window.location.href="<?php echo apth_url('?act=data_list&id='.$id.'&pid=&area="+area+"');?>";
+			}
+			else
+			{	
+				window.location.href="<?php echo apth_url('?act=data_list&id='.$id.'&pid="+pid+"&area="+area+"');?>";
+			}
+		});
+	});
+	/*加载更多内容*/
+	var page=2,e;
+	$(".more-btn a:eq(1)").click(function(){
+		var area = $(".fl_select").val();
+		$.ajax({
+			url:'<?php echo apth_url("index.php");?>',
+			type:'POST',
+			data:'act=GetLoadContent&flag=1&page='+page+'&pid=<?php echo $pid;?>&area='+area,
+			beforeSend:function(){
+				$(".link-looks:eq(0)").show();
+				$(".link-looks:eq(1)").hide();				
+			},
+			complete:function(){
+				$(".link-looks:eq(0)").hide();
+				$(".link-looks:eq(1)").show();
+				if( e == 'eixt' ){
+					$(".link-looks:eq(0)").hide();
+					$(".link-looks:eq(1)").hide();
+					$(".link-looks:eq(2)").show();
+				}
+			},
+			success:function(data){
+				e = data;
+				if( data != 'eixt' )
+				{	
+					$(".ul-learn").append(data);
+				}
+	    	}
+		 });
+		page++;
+	});
+});
+</script> 
+</body>
+</html>

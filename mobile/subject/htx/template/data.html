@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport"/>
+<meta name ="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge ,chrome=1" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title><?php echo $global['title'];?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/banner.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<script src="<?php echo apth_url('subject/htx/js/jquery.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/amazeui.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/common.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+</head>
+<body>
+<!-- 头部 -->
+<div class="headbox headbox-a">
+	<div class="return" data-ripple><a href="<?php echo apth_url('');?>">返回</a></div>
+
+	<div class="location">资料</div>
+
+	<?php require('pic.html');?>
+</div>
+<!-- /头部 -->
+<ul class="classify-ul">
+<?php if(!empty($fl)){?>
+	<?php foreach($fl as $k=>$v){?>
+		<li>
+			<a href="<?php echo apth_url('?act=data_list&id='.$v['id']);?>">
+				<img src="<?php echo apth_url('subject/htx/images/icon-29-'.$k.'.png');?>" alt="">
+				<p><?php echo $v['name'];?></p>
+			</a>
+		</li>
+	<?php }?>
+<?php }else{?>
+		<li style="line-height:50px;text-align:center;color:#999999;">暂时没有内容</li>
+<?php }?>
+</ul>
+<!-- 底部更多 -->
+<?php require('menu.html');?>
+
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script> 
+
+</body>
+</html>

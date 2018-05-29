@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport"/>
+<meta name ="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge ,chrome=1" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title><?php echo $global['title'];?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/personal-css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<script src="<?php echo apth_url('subject/htx/js/jquery.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+</head>
+
+<body class="personal-body">
+<div class="personal-head">
+	<div class="personal-fh" onclick="return_in();" data-ripple></div>
+	<div class="personal-head-c">
+		<strong class="strong-portrait">
+			<img src="<?php echo $userinfo['pic'];?>" alt="<?php echo $userinfo['username'];?>">
+		</strong>
+		<h3><?php echo $userinfo['username'];?></h3>
+	</div>
+
+	<div class="personal-head-b">
+		<p>经验：<span><?php echo $Datainfo['saTotal'];?></span></p>
+		<p>积分：<span><?php echo $userinfo['integral'];?></span></p>
+		<p><a href="">关注：<span><?php echo $userinfo['follow'];?></span></a></p>
+		<p><a href="">粉丝<span><?php echo $userinfo['fans'];?></span></a></p>
+	</div>
+
+	<a href="<?php echo apth_url('?act=ThemArticles');?>"class='fab-btn'>发布手记</a>
+</div>
+
+<div class="widthdiv-a">
+	<div class="widthdiv">
+		<h5 class="h5div">我的手记</h5>
+		<ul class="process-ul">
+<?php if(!empty($rows)){?>	
+	<?php foreach($rows as $ks=>$vs){?>		
+			<li>
+				<div class="process-li-fl note-li-fl">
+					<span><?php echo $ks;?></span>
+				</div>
+		
+				<div class="process-li-fr note-div-1">
+			<?php foreach($vs as $k=>$v){$j=ParsingJson($v['cover']);?>	
+					<div class="note-a">
+						<div class="note-right">
+							<strong>
+					<?php if($v['cover']!=''){?>		
+								<a href="<?php echo apth_url('?act=ContentsNotes&contid='.$v['id'].'&user='.$v['userid']);?>">
+									<img src="<?php echo EXTURL.$j[0];?>" alt="<?php echo $v['title'];?>">
+								</a>
+					<?php }?>			
+							</strong>
+							<a href="<?php echo apth_url('?act=ContentsNotes&contid='.$v['id'].'&user='.$v['userid']);?>" class="note-a-div">
+								<div class="note1-1"><?php echo $v['title'];?></div>
+								<div class="note1-2"><?php echo $v['flname'];?></div>
+								<div class="note1-3"><?php echo $v['ymd'];?></div>
+							</a>
+						</div>
+						<!-- 
+						<h6 class="note-h6">
+							<span>未审核</span>
+							<a href="personal-5-2.html">返回修改</a>
+						</h6>
+						 -->
+					</div>
+			<?php }?>
+				</div>
+			</li>
+	<?php }?>		
+<?php }else{?>
+		<li style="text-align:center;font-size:16px;color:#DDDDDD;">暂时没有专题</li>
+<?php }?>						
+		</ul>
+	</div>
+<?php if(!empty($rows)){?>	
+	<div style="text-align:center;width:4rem;height:35px;line-height:35px;background:#EEEEEE;margin:20px auto 0 auto;border-radius:4px;" onclick="Loading_all(this);" class="loading_s">加载更多</div>
+	<div style="text-align:center;width:4rem;height:35px;line-height:35px;background:#EEEEEE;margin:20px auto 0 auto;border-radius:4px;display:none;" class="loading_s">
+	<img src="<?php echo apth_url('subject/htx/images/htx_loading.gif');?>" style="display:inline;width:15px;" alt="加载更多" align="absmiddle">
+	加载更多
+	</div>
+<?php }?>	
+</div>
+<?php require('menu.html');?>
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script> 
+<script> 
+function return_in(){
+	location.href="<?php echo apth_url();?>"
+}
+var i=2;
+var page = "<?php echo $Datainfo['rows']['totalpage'];?>";
+function Loading_all(t){
+	if( i <= page )
+	{
+		$.ajax({
+			url:'<?php echo apth_url("index.php");?>',
+			type:'post',
+			data:"act=mGetThemaInfo_page&id=<?php echo $userinfo['id'];?>&page="+i,
+			beforeSend:function(){
+				$(".loading_s").hide();
+				$(".loading_s:eq(1)").show();
+			},
+			complete:function(){
+				$(".loading_s").hide();
+				$(".loading_s:eq(0)").show();
+			},    
+			success:function(data){
+				//console.log(data);return false;
+				var obj = eval("("+data+")");
+				if( obj.error == 0 )
+				{
+					$(".process-ul").append(obj.txt);	
+				}
+				else
+				{
+					$(t).html(obj.txt);
+				}
+			}
+		});
+	}
+	else
+	{
+		$(".loading_s").hide();
+		$(".loading_s:eq(0)").show();
+		$(t).html('<font color="#999999">加载完毕</font>');
+	}	
+	i++;
+}
+</script> 
+</body>
+</html>

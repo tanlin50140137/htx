@@ -1,0 +1,287 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport"/>
+<meta name ="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge ,chrome=1" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title><?php echo $global['title'];?></title>
+<link rel='stylesheet' href="<?php echo apth_url('subject/htx/layui/css/layui.css');?>">  
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/personal-css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel='stylesheet' type="text/css" href="<?php echo apth_url('subject/htx/css/swiper.min1.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>"> 
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>"> 
+<script src="<?php echo apth_url('subject/htx/js/jquery.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/personal/tab.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/layui/layui.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+</head>
+<body class="personal-body">
+<div class="personal-head personal-head-a">
+	<div class="personal-fh" onclick="return_bak();" data-ripple></div>
+	<p>我的提问</p>	
+</div>
+<div class="con-tab-personal">
+
+	<!-- header -->
+	<header class="favor-header-bar">
+	    <ul class="tabs">
+	        <li><a href="javascript:void(0);" class="default">我的提问</a></li>
+	        <li><a href="javascript:void(0);">手记提问</a></li>
+	        <li><a href="javascript:void(0);">关注的提问</a></li>
+	        <li><a href="javascript:void(0);">我的回答</a></li>
+	    </ul>
+	</header>
+   <!-- slideTo tab -->
+   <div class="swiper-container favor-list">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide swiper-slide-1">
+<?php if(!empty($rows4['rows'])){?> 
+	   <?php foreach($rows4['rows'] as $k=>$v){?>       
+ 				<div class="coursediv coursediv-12">
+					<div class="course-top course-top-tw">
+						<strong class="course-portrait">
+							<img src="<?php echo $v['pic'];?>" alt="<?php echo $v['username'];?>">
+						</strong>
+						<p class="course-p-12 course-p-15"><?php echo $v['username'];?></p>
+
+						<div class="fr">
+							 <span class="span-date"><?php echo $v['publitime'];?></span>
+						</div>
+					</div>
+					<div class="my-questionsA">
+						<div class="questionsA-titA"><span>提问：</span><?php echo $v['title'];?></div>
+						<div class="questionsA-titB">描述：<?php echo $v['body'];?></div>
+					</div>
+	<?php if(!empty($v['child'])){?>				
+					<div class="layui-collapse" lay-filter="test">
+					  <div class="layui-colla-item">			  
+					    <h2 class="layui-colla-title">
+							<div class="answer-btn">
+								<div class="questions-ask"><a href="answer.html"><b class="my-questions-b"><?php echo count($v['child']);?></b>个回答</a></div>
+								<a href="javascript:void(0)" class="answer-btn-a">查看回答</a>
+							</div>			
+					    </h2>
+					    <div class="layui-colla-content">				    				      
+						<ul class="my-questions-ul">
+			<?php foreach($v['child'] as $ks=>$vs){?> 										
+							<li class="my-questions-text">
+								<div class="my-questionsB">
+									<strong class="course-portrait">
+										<img src="<?php echo $vs['pic'];?>" alt="<?php echo $vs['username'];?>">
+									</strong>
+
+									<div class="questionsB-div1">
+										<div class="questionsB-name"><?php echo $vs['username'];?></div>
+										<div class="questionsB-date"><?php echo date('Y年m月d日 H时i分',$vs['publitime']);?></div>
+									</div>
+
+									<div class="adopt">
+							<?php if($vs['adopt'] == 0){?>		
+										<div class="adoptA" onclick="Adopt('<?php echo $vs['id'];?>','<?php echo $vs['myid'];?>','<?php echo $member_all['id'];?>');">采纳</div>
+										<div class="adoptA" onclick="Report('<?php echo $vs['id'];?>','<?php echo $vs['myid'];?>','<?php echo $member_all['id'];?>');">举报</div>
+							<?php }else{?>
+										<div class="adoptA" style="color:#999999;">已采纳</div>
+							<?php }?>			
+									</div>
+								</div>
+								<div class="answer-cont"><?php echo $vs['body'];?></div>
+							</li>
+			<?php }?>											
+						</ul>
+					    </div>  
+					  </div>
+					</div>
+		<?php }?>							
+				</div>  
+	 <?php }?>			        
+<?php }else{?>
+				<div class="coursediv" style="height:100px;text-align:center;line-height:100px;font-size:16px;color:#c5bfbf;">您暂时没有提问</div>
+<?php }?>        
+            </div>
+<script>
+	layui.use(['element', 'layer'], function(){
+	  var element = layui.element;
+	  var layer = layui.layer;
+	  
+	  
+	  element.on('collapse()', function(data){
+	    layer.msg(''+ data.show);
+	  });
+	});
+
+	$(".answer-btn a").click(function(){
+	    var vl=$(this).html();
+	    if(vl=="查看回答"){
+	        $(this).html("收起回答");
+	        
+	    }else if(vl=="收起回答"){
+	        $(this).html("查看回答");
+	    }  
+	});
+//采纳
+function Adopt(id,userid,myid){
+	$.post("<?php echo EXTLINK;?>",{"act":"Adopt","id":id,"userid":userid,"myid":myid},function(data){
+		var b = eval("("+data+")");
+		if( b.error == 0 )
+		{			
+			layer.open({
+			    content: '成功采纳'
+			    ,skin: 'msg'
+			    ,time: 2 //2秒后自动关闭
+			    ,end:function(){
+			    	location.reload();
+			    }
+			});
+		}	
+		else
+		{
+			layer.open({
+			    content: b.txt
+			    ,skin: 'msg'
+			    ,time: 2 //2秒后自动关闭
+			});
+		}	
+	});
+}
+//举报
+function Report(id,userid,myid){
+	$.post("<?php echo EXTLINK ;?>",{"act":"Report","id":id,"userid":userid,"myid":myid},function(data){
+		var b = eval("("+data+")");
+		if( b.error == 0 )
+		{
+			layer.open({
+			    content: '举报成功等待审核...'
+			    ,skin: 'msg'
+			    ,time: 2 //2秒后自动关闭
+			    ,end:function(){
+			    	location.reload();
+			    }
+			});
+		}	
+		else
+		{
+			layer.open({
+			    content: b.txt
+			    ,skin: 'msg'
+			    ,time: 2 //2秒后自动关闭
+			});
+		}	
+	});	
+}
+</script>
+            <div class="swiper-slide swiper-slide01">
+<?php if(!empty($rows5)){?> 
+	    <?php foreach($rows5 as $k=>$v){?>       
+ 				<div class="coursediv coursediv-12">
+					<div class="neirong-div">
+						<div>
+							<h4 class="neirong-h412">
+								<span>我提问：</span>
+								<p><?php echo $v['title'];?></p>
+							</h4>							
+							<div class="neirong-low-1">
+								<span class="fl"><?php echo $v['publitime'];?></span>
+							</div>
+						</div>
+					</div>
+		<?php foreach($v['child'] as $ks=>$vs){?> 			
+					<div class="course-top course-to12">
+						<strong class="course-portrait">
+							<img src="<?php echo $vs['pic'];?>" alt="<?php echo $vs['flname'];?>">
+						</strong>
+						<div class="course-p-12 course-p-13 fl"><?php echo $vs['body'];?></div>
+						<div class="course-ask course-ask-13 "><a href="<?php echo apth_url('?act=ReturnMessage&id='.$v['myid'].'&username='.$vs['username'].'&userid='.$vs['id']);?>">追问</a></div>
+					</div>
+		<?php }?>			
+				</div> 				
+	<?php }?>			         
+<?php }else{?>
+			   <div class="coursediv coursediv-12" style="height:100px;text-align:center;line-height:100px;font-size:16px;color:#c5bfbf;">暂时没有手记提问</div>
+<?php }?>     
+            </div>
+
+            <div class="swiper-slide">
+<?php if(!empty($mycon1['rows'])){?>   
+       <?php foreach($mycon1['rows'] as $k=>$v){?>  
+ 				<div class="coursediv coursediv-12">
+					<div class="course-top course-top-tw" style="background: none;">
+						<strong class="course-portrait">
+							<img src="<?php echo $v['pic'];?>" alt="<?php echo $v['username'];?>">
+						</strong>
+						<p class="course-p-12"><?php echo $v['title'];?></p>
+						<div class="course-ask"><a href="<?php echo apth_url('?act=Answer&userid='.$v['id']);?>">点击查看</a></div>
+					</div>
+
+					<div class="neirong-div">
+						<a href="">
+							<div class="neirong-low-1">
+								<span class="fr"><b class="color-ff9900"><?php echo $v['n1'];?></b>个人回答</span>
+							</div>
+						</a>
+					</div>
+				</div>   
+	<?php }?> 			       
+<?php }else{?>  
+			<div class="coursediv coursediv-12" style="height:100px;text-align:center;line-height:100px;font-size:16px;color:#c5bfbf;">暂时没有关注任何问题</div>
+<?php }?>       
+            </div>
+
+            <div class="swiper-slide">
+<?php if(!empty($myan['rows'])){?>  
+	<?php foreach($myan['rows'] as $k=>$v){?>           
+ 				<div class="coursediv coursediv-12">
+					<div class="course-top course-top-tw">
+						<strong class="course-portrait">
+							<img src="<?php echo $v['pic'];?>" alt="<?php echo $v['username'];?>">
+						</strong>
+						<p class="course-p-12"><?php echo $v['username'];?></p>
+						<div class="course-ask"><a href="<?php echo apth_url('?act=Answer&userid='.$v['id']);?>">点击查看</a></div>
+					</div>
+
+					<div class="neirong-div">
+						<div>
+							<div class="neirong-text12">
+								<div class="neirong-tit">
+									<span>问题：</span><?php echo $v['title'];?></div>
+								<div class="neirong-text12-p"><span>回答内容：</span><?php echo $v['body'];?></div>
+							</div>
+							<div class="neirong-low-1">
+								<span class="fl"><?php echo date("Y年m月d日 H时i分",$v['publitime']);?></span>
+						<?php if($v['adopt'] == 0){?>		
+								<span class="fr">未被采纳</span>
+						<?php }else{?>
+								<span class="fr" style="color:#819848;">已被采纳</span>
+						<?php }?> 		
+							</div>
+						</div>
+					</div>
+			  </div>  
+	<?php }?>		           
+<?php }else{?>  
+			<div class="coursediv coursediv-12" style="height:100px;text-align:center;line-height:100px;font-size:16px;color:#c5bfbf;">暂时没有回答任何问题</div>
+<?php }?>        
+            </div>
+        </div>
+</div>
+
+<!-- 底部 菜单-->
+<?php require('menu.html');?>
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script> 
+<script>
+function return_bak(){
+	location.href="<?php echo apth_url('?act=mypersonal');?>"
+}    
+</script>
+</div>
+</body>
+</html>

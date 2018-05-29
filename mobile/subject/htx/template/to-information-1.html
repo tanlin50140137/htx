@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title>审核专题-个人</title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<script src="<?php echo apth_url('subject/htx/js/jquery.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/personal/tab.js');?>"></script> 
+</head>
+
+<body>
+<!-- 头部 -->
+<div class="headbox headbox-a">
+	<div class="return" data-ripple><a href="<?php echo apth_url('?act=to_information');?>">返回</a></div>
+	<div class="location">资料审核</div>
+	<?php require('pic.html');?>
+</div>
+
+<!-- /头部 -->
+<div class="swiper-container">
+	<div class="swiper-wrapper">    	
+		<div class="swiper-slide to-nfor-div search-none">  
+			<div class="shz-img">个人专题</div>
+
+            <ul class="to-nfor-ul">
+            	<li>
+            		<div class="nfor-ul-fl">关联账号：</div>
+            		<div class="nfor-ul-fr"><?php echo $row['username'];?></div>
+            	</li>
+
+            	<li>
+            		<div class="nfor-ul-fl">真是姓名：</div>
+            		<div class="nfor-ul-fr ask-div">
+            			<p class="audit-p"><?php echo $row['useras'];?></p>
+            		</div>
+            	</li>
+
+            	<li>
+            		<div class="nfor-ul-fl">个人简介：</div>
+            		<div class="nfor-ul-fr ask-div">
+            			<p class="audit-p"><?php echo $row['abstract'];?></p>
+            		</div>
+            	</li>
+
+            	<li>
+            		<div class="nfor-ul-fl nfor-phone">手机号码：</div>
+            		<div class="nfor-ul-fr ask-div">
+            			<p class="audit-p"><?php echo $row['tel'];?></p>
+            		</div>
+            	</li>
+
+            	<li>
+            		<div class="nfor-ul-fl">身份证：</div>
+					<div class="nfor-ul-fr">
+						<div class="card-picture">
+							<div class="picture-a">
+								<div class="picture-img"><img src="<?php echo EXTURL.'/'.$img_j[0];?>" alt="正面"></div>
+
+							</div>
+						</div>
+
+						<div class="card-picture">
+							<div class="picture-a">
+								<div class="picture-img"><img src="<?php echo EXTURL.'/'.$img_j[1];?>" alt="返回"></div>
+								
+							</div>
+						</div>
+
+						<div class="card-picture">
+							<div class="picture-a">
+								<div class="picture-img"><img src="<?php echo EXTURL.'/'.$img_j[2];?>" alt="手持"></div>
+								
+							</div>
+						</div>
+						<b class="b">要求照片格式“jpg、png、gif”大小不超出2M，字迹清晰可见，以便工作人员审核；人工审核，需1-2个工作日内完成。</b>
+					</div>			
+            	</li>
+            </ul>
+
+			<div class="xy-div">
+			 	<a href="javascript:void(0);" class="con-btn to-info-btn to-info-btn1" onclick="next();" data-ripple>下一步</a>
+			</div>			
+
+        </div>
+        
+	</div>
+</div>
+
+<!-- 底部 菜单-->
+<?php require('menu.html');?>
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script> 
+<script>
+function next(){
+	$.post("<?php echo apth_url('index.php');?>",{"act":"mGetUserinfo","tel":"<?php echo $row['tel'];?>"},function(data){
+		var obj = eval("("+data+")");
+		var flag = obj.authentication;
+		if( flag == 2 ){
+			location.href="<?php echo apth_url('?act=to_information_2&contid='.$member_all['tel']);?>";
+		}else{
+			layer.open({
+			    content: '未审核通过'
+			    ,skin: 'msg'
+			    ,time: 2
+			});
+		}
+	});
+}
+</script>
+</body>
+</html>

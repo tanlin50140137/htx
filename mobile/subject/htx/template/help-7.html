@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport"/>
+<meta name ="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge ,chrome=1" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title><?php echo $global['title'];?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/amazeui.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/common.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+</head>
+
+<body>
+<!-- 头部 -->
+<div class="headbox headbox-a">
+	<div class="return" data-ripple><a href="<?php echo apth_url('?act=help');?>">返回</a></div>
+	<div class="location">常见问题</div>
+	<?php require('pic.html');?>
+</div>
+<!-- /头部 -->
+<div class="help-con">
+
+	<h3 class="help-h3">一、谷哥浏览器视频无法播放怎么办？</h3>
+
+	<p>1.可能的原因是浏览器未启用flash插件导致</p>
+	<img src="<?php echo apth_url('subject/htx/images/flash_player2.png');?>" alt="">
+
+	<p style="margin-top:0.6rem">2.点击启用</p>
+	<img src="<?php echo apth_url('subject/htx/images/flash_player3.png');?>" alt="">
+
+	<p style="margin-top:0.6rem">3.点击允许 只需要完成以上两个操作，即可播放视频！</p>
+
+	<h3 class="help-h3">二、支付常见问题</h3>
+
+	<p>1.支付出现无法支付或提示字段缺省问题</p>
+
+	<p>可能的原因是：</p>
+
+	<p>（1）不可抗力的第三方支付平台系统错误；</p>
+
+	<p>（2）人为操作系统搬迁导致配置出错；</p>
+
+	<p>（3）用户使用不稳定网络因素造成；</p>
+
+	<p>2.出现以上问题，可以直接拨打客服电话或其它方式联系，火天信资料库管理员会在2个小时之内解决。</p>
+
+	<h3 class="help-h3">三、我已经支付，如何查看结果？</h3>
+
+	<p>1.登录火天信建筑资料库</p>
+
+	<p>2.进入火天信建筑资料库的会员中心</p>
+
+	<p>3.点击会员中心菜单下面的“我的课程”，一般已经购买的资料或课程都在这里查看。</p>
+
+	<h3 class="help-h3">四、我的积分如何使用？</h3>
+
+	<p>1.登录火天信建筑资料库，提问超过2个扣除2点积分。</p>
+
+	<p>2.会员积分在火天信工程网三大平台中都可以使用。</p>
+
+	<h3 class="help-h3">五、平台资源展示规则问题</h3>
+
+	<p>1.资源采用上架或者下架方式展示</p>
+
+	<p>2.资源在展示一段时间后，点击阅读量少，会被下架，下架的资源无法访问。</p>
+
+	<p>3.平台合作资源，协议到期并协议终止后，不在展示资源。</p>
+</div>
+
+<a href="#" class="top-div"></a>
+
+
+<!-- 底部 菜单-->
+
+<div class="footer-menu">
+	<ul class="footer-menu-ul">
+		<li>
+			<a href="index.html">
+				<img src="images/icon-12.png" alt="">
+				<p>首页</p>
+			</a>
+		</li>
+
+		<li class="menu-message">
+			<a href="">
+				<img src="images/icon-13.png" alt="">
+				<p>消息</p>
+				<b></b>
+			</a>
+		</li>
+
+		<li class="more-icon">
+			<a href="javascript:void(0);">
+				<img src="images/icon-14.png" alt="">
+				<p>更多</p>
+			</a>
+		</li>
+
+		<li>
+			<a href="">
+				<img src="images/icon-15.png" alt="">
+				<p>发现</p>
+			</a>
+		</li>
+
+		<li>
+			<a href="">
+				<img src="images/icon-16.png" alt="">
+				<p>我的</p>
+			</a>
+		</li>
+	</ul>
+</div>
+
+<!-- 底部 菜单-->
+<?php require('menu.html');?>
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script> 
+
+</body>
+</html>

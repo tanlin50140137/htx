@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport"/>
+<meta name ="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge ,chrome=1" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title><?php echo $global['title'];?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/personal-css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<script src="<?php echo apth_url('subject/htx/js/jquery.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/amazeui.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/common.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script> 
+</head>
+
+<body>
+<div class="personal-head">
+	<div class="personal-fh" onclick="return_bak();"></div>
+	
+	<div class="personal-head-c">
+		<strong class="strong-portrait modify-portrait">
+			<div class="modifyA">
+				<span>修改头像</span>
+			</div>
+			<img src="<?php echo $pic;?>" alt="<?php echo $username;?>">
+		</strong>
+		<h3><?php echo $username;?></h3>
+	</div>
+
+	<div class="personal-head-b">
+		<p>积分：<span><?php echo $integral;?></span></p>
+		<p><a href="<?php echo apth_url('?act=focus_on');?>">关注：<span><?php echo $follow;?></span></a></p>
+	</div>
+</div>
+
+<!--修改头像-->
+<div class="xg-portrait">
+	<div class="xg-portraitA">
+		<div class="portraitA-top">
+			<div class="fl">修改头像</div>
+			<div class="fr portraitA-right">x</div>
+		</div>
+
+		<div class="xg-portraitB">
+			<img src="<?php echo $pic;?>" alt="<?php echo $username;?>" class="pic_alls" id="img_url">
+		</div>
+
+		<div class="xg-portraitC">
+			<span onclick="OneChange();">换一换</span>
+			<span class="portraitC-span">上传头像<input class="input-file" id="uploaderInput" onchange="previewImage(this)" type="file"/></span>
+		</div>
+		<input type="hidden" name="pic" id="headpic" value=""/>
+		<input type="hidden" name="users" id="users" value="<?php echo GetUserNames($member_all);?>"/>
+		<input type="hidden" name="flag" id="headpic" value=""/>
+		<div class="xg-portraitD">
+			<input type="button" value="确定" onclick="Determine_OK(1);" class="qued-btn">
+			<input type="button" value="取消" onclick="Cancel_OK(1);"  class="qux-btn">
+		</div>
+	</div>
+</div>
+
+<ul class="personal-ul">
+	<li><a href="<?php echo apth_url('?act=mypersonal_in&locat=1');?>" class="per-icon-1">我的动态</a></li>
+
+	<li><a href="<?php echo apth_url('?act=mypersonal_in&locat=2');?>" class="per-icon-2">我的课程</a></li>
+
+	<li><a href="<?php echo apth_url('?act=mypersonal_in&locat=3');?>" class="per-icon-3">我的提问</a></li>
+	
+	<!-- <li><a href="<?php echo apth_url('?act=mypersonal_in&locat=8');?>" class="per-icon-8">我的余额</a></li> -->
+	
+	<li><a href="<?php echo apth_url('?act=mypersonal_in&locat=4');?>" class="per-icon-4">订单中心</a></li>
+
+	<li><a href="<?php echo apth_url('?act=mypersonal_in&locat=5');?>" class="per-icon-5">我的专题</a></li>
+
+	<li><a href="<?php echo apth_url('?act=mypersonal_in&locat=6');?>" class="per-icon-6">个人设置</a></li>
+
+	<li><a href="<?php echo apth_url('?act=SignOut');?>" class="per-icon-7">退出</a></li>
+</ul>
+
+<!-- 底部 菜单-->
+<?php require('menu.html');?>
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script> 
+<script> 
+function return_bak(){
+	location.href="<?php echo apth_url();?>"
+}
+//换一换
+function OneChange(){
+	$.post("<?php echo apth_url('index.php');?>",{"act":"GetOneChange"},function(d){
+		var obj = eval("("+d+")");
+		$(".pic_alls").attr({"src":obj.url});
+		$("#headpic").val(obj.name);
+		$("[name='flag']").val('1');
+	});
+}
+//本地上传
+function previewImage(file){
+	$("[name='flag']").val('2');
+	if(file.files && file.files[0]){
+		var img = $("#img_url")[0];
+		var reader = new FileReader(),rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;;  				
+		
+		var size = file.size;
+		var Max_Size = 2000*1024;
+		var width,height;
+		var image = new Image();
+				
+		reader.onload = function(evt){
+			img.src=evt.target.result;
+			
+			var data = evt.target.result;
+			 image.onload=function(){
+				width = image.width;
+				height = image.height;				
+			};
+			image.src= data;			 
+		} 		
+	
+	    if(!rFilter.test(file.files[0].type)) { alert("文件类型不正确 "); return; }	
+	    if(size>Max_Size){ alert("文件大小不能超出2M"); return; }
+	    
+	    reader.readAsDataURL(file.files[0]);
+    }	    
+}
+//取消
+function Cancel_OK(t)
+{
+	$("[name='flag']").val('');
+	$(".xg-portrait").hide();
+}
+//确定
+function Determine_OK(t){
+	if($("[name='flag']").val() != ''){
+		if( $("[name='flag']").val() == '2' ){
+			
+			 //提交
+			 var formData = new FormData();
+			 var f = document.getElementById("uploaderInput");
+			 formData.append("act", "mUploadLocal");
+			 formData.append("head", f.files[0]);
+			 formData.append("users", $("#users").val());
+		     $.ajax({
+		         url: "<?php echo EXTLINK;?>",
+		         type: "POST",
+		         data: formData,
+		         contentType: false,
+		         processData: false,
+		         success:function(data){
+		        	var obj = eval("("+data+")");
+		        	if( obj.error == '0' ){
+		        		layer.open({
+		        		    content: '头像更换成功'
+		        		    ,skin: 'msg'
+		        		    ,time: 1
+		        		    ,end:function(){
+		        		    	$.post('<?php echo apth_url("index.php");?>',{'act':'SetUserInfo_all','users':$("#users").val()},function(d){
+		        		    		location.reload();
+		        		    	});		        		    	
+		        		    }
+		        		});
+		        	}else{
+		        		layer.open({
+		        		    content: obj.txt
+		        		    ,skin: 'msg'
+		        		    ,time: 2
+		        		});
+		        	}	 
+		         }
+		     });
+			
+		}else if( $("[name='flag']").val() == '1' ){
+			
+			 //提交
+			 var formData = new FormData();
+			 formData.append("act", "mUploadLocal");
+			 formData.append("pic", $("#headpic").val());
+			 formData.append("users", $("#users").val());
+		     $.ajax({
+		         url: "<?php echo EXTLINK;?>",
+		         type: "POST",
+		         data: formData,
+		         contentType: false,
+		         processData: false,
+		         success:function(data){
+		        	var obj = eval("("+data+")");
+		        	if( obj.error == '0' ){
+		        		layer.open({
+		        		    content: '头像更换成功'
+		        		    ,skin: 'msg'
+		        		    ,time: 1
+		        		    ,end:function(){
+		        		    	$.post('<?php echo apth_url("index.php");?>',{'act':'SetUserInfo_all','users':$("#users").val()},function(d){
+		        		    		location.reload();
+		        		    	});	
+		        		    }
+		        		});	
+			        }else{
+			        	layer.open({
+		        		    content: obj.txt
+		        		    ,skin: 'msg'
+		        		    ,time: 2
+		        		});	
+			        }
+		         }
+		     });
+			
+		}else{
+			layer.open({
+			    content: '缺少参数'
+			    ,skin: 'msg'
+			    ,time: 2
+			});
+		}
+	}else{
+		layer.open({
+		    content: '更换头像后再点击确定'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+	}
+}
+$(".modify-portrait").click(function(){
+	$(".xg-portrait").slideToggle(0);
+	});
+
+$(".portraitA-right").click(function(){
+	$(".xg-portrait").fadeOut(0);
+});
+</script> 
+</body>
+</html>

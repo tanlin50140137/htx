@@ -1,0 +1,477 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport"/>
+<meta name ="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge ,chrome=1" />
+<meta name="keywords" content="<?php echo $DataList['row']['flname'];?>" />
+<meta name="description" content="<?php echo $DataList['row']['seriestions'];?>">
+<title><?php echo $DataList2["txt"]["tags"];?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/banner.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<!--<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/swiper-3.2.7.min.css');?>" />-->
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<script src="<?php echo apth_url('subject/htx/js/jquery.js');?>"></script> 
+<!-- <script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> -->
+<script src="<?php echo apth_url('subject/htx/js/amazeui.js');?>"></script>
+<!-- <script src="<?php echo apth_url('subject/htx/js/pinglun.js');?>"></script> -->
+<script src="<?php echo apth_url('subject/htx/js/common.js');?>"></script>
+<!-- <script src="<?php echo apth_url('subject/htx/js/video-details2.js');?>"></script> -->
+<!-- <script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script> -->
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+<!-- <script type="text/javascript" src="<?php echo apth_url('subject/htx/js/swiper-3.4.0.jquery.min.js');?>" ></script> --> <!-- 章节 -->
+</head>
+<script>
+	$(function(){
+		auto();
+	});
+	$(window).resize(function(){
+		auto();
+
+	});
+	function auto(){
+		var meta = $("body").width()
+		var a = 375/20;
+		var d = meta/a;
+		if(meta>375){
+			$("html").css({"font-size":""+d+"px"});
+		}
+		else{
+			$("html").css({"font-size":"20px"});
+		};
+	};
+</script>
+<body>
+<!-- 头部 -->
+<div class="headbox headbox-a">
+	<div class="return" data-ripple><a href="<?php echo apth_url('?act=videoinfo&contid='.$id);?>">返回</a></div>
+	<div class="location">视频</div>
+	<?php require('pic.html');?>
+</div>
+<!-- /头部 -->
+
+<div class="widthdiv-a">
+	<div class="widthdiv">
+		<div class="section-b" style="padding: 0 0 10px 0;">
+				<h3>[<?php echo $DataList2["txt"]["teacher"];?>]</h3>
+				<h4 style="margin-left:1px;"><?php echo $DataList2["txt"]["title"];?></h4>				
+		</div>
+<?php if( $DataList2["txt"]["pay"] == 1 ){?>
+		
+		<div class="video-a">	
+			<div id="video_main_url" style="border:2px solid #000000;"><img src="<?php echo apth_url('subject/htx/images/img-06.jpg');?>" alt="视频区"></div>		
+		</div>
+		
+<?php }else{?>	
+	
+	<?php if(!in_array($DataList2["txt"]["numbers"], $flag_pay)){?>
+	
+		<div class="video-a">
+			<div><img src="<?php echo apth_url('subject/htx/images/img-06.jpg');?>" alt="视频区"></div>
+			<img src="<?php echo apth_url('subject/htx/images/icon-42.png');?>" alt="" class="img-btn">
+			<div class="video-pay">
+				<div class="pay-a">
+					<p><?php echo $DataList2["txt"]["tags"];?></p>
+					<p>全套课件<b> &yen;<?php echo $DataList2["txt"]["integral"];?></b>元</p>
+			<?php if($boolstr!=false){?>					
+					<a href="<?php echo apth_url('?act=v_payment_center&consid='.$id.'&numbers='.$DataList2['txt']['numbers']);?>" class="con-btn xz-btn zf-btn">立即支付</a>
+			<?php }else{?>		
+					<a href="javascript:void(0);" class="con-btn xz-btn zf-btn" onclick="LogInImmediately();">立即支付</a>
+			<?php }?>		
+				</div>
+			</div>
+		</div>
+		
+	<?php }else{?>
+		
+		<div class="video-a">	
+			<div id="video_main_url" style="border:2px solid #000000;"><img src="<?php echo apth_url('subject/htx/images/img-06.jpg');?>" alt="视频区"></div>		
+		</div>
+		
+	<?php }?>
+		
+<?php }?>		
+		<div class="video-section">
+		
+			<div class="section-a">
+				<h3><span><?php echo $DataList2["txt"]["rds"];?></span>第<?php echo $DataList2["txt"]['numbers'];?>讲</h3>
+				<!-- <h4 class="share-btn">分享</h4>	 -->			
+			</div>
+		
+			<div class="section-b">
+				<h3>全部章节</h3>
+				<h4>共<span><?php echo $DataList['c'];?></span>节｜免费看<span><?php echo $DataList['a'];?></span>节</h4>				
+			</div>
+
+			<div class="swiper-container swiper1">
+				<ul class="section-ul swiper-wrapper swiper-wrapper-ul1">
+<?php if(!empty($DataList['RowsAll'])){?>
+	<?php foreach($DataList['RowsAll'] as $k=>$v){?>
+		<?php if( $v['integral'] != 0 ){?>
+			<?php if($v['state']==2 && in_array($v['numbers'],$v['numbers_pay']) ){?>					
+					<li class="swiper-slide" <?php echo $getnums==$v['numbers']?'style="background:#8dda8d;"':'';?> ><a href="<?php echo apth_url('?act=videolook&contid='.($v['pid']==0?$v['id']:$v['pid']).'&numbers='.$v['numbers']);?>"><?php echo $v['numbers'];?></a></li>
+			<?php }else{?>
+					<li class="swiper-slide" <?php echo $getnums==$v['numbers']?'style="background:#8dda8d;"':'';?> ><a href="<?php echo apth_url('?act=videolook&contid='.($v['pid']==0?$v['id']:$v['pid']).'&numbers='.$v['numbers']);?>" class="a"><?php echo $v['numbers'];?></a><span>付</span></li>					
+			<?php }?>	
+		<?php }else{?>
+					<li class="swiper-slide" <?php echo $getnums==$v['numbers']?'style="background:#8dda8d;"':'';?> ><a href="<?php echo apth_url('?act=videolook&contid='.($v['pid']==0?$v['id']:$v['pid']).'&numbers='.$v['numbers']);?>"><?php echo $v['numbers'];?></a></li>
+		<?php }?>			
+	<?php }?>				
+<?php }?>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="widthdiv-a">
+	<div class="widthdiv">
+		<h5 class="h5div">本章重点</h5>
+		<div class="int-lecturer">
+			<?php echo $DataList2['txt']['akey'];?>
+		</div>
+	</div>
+</div>
+
+<div class="widthdiv-a">
+	<div class="widthdiv">
+		<h5 class="h5div">作业</h5>
+		<div class="int-lecturer">
+			<?php echo $DataList2['txt']['task'];?>
+		</div>
+	</div>
+</div>
+
+<div class="widthdiv-a">
+	<div class="widthdiv">
+		<h5 class="h5div">评论</h5>
+		
+		<div class="comment-box">
+	<?php if($boolstr==false){?>	
+			<div class="comment comment-a">我也来说两句，<a href="javascript:void(0);" onclick="LogInImmediately();">立即登录</a></div>
+	<?php }else{?>
+			<!-- 登录后-->			
+			<div class="comment-b">
+			<form id="GetFormData">
+				<textarea name="body" placeholder="随便说两句..." class="comment setTxt_all"></textarea>
+				<input type="hidden" name="numbers" value="<?php echo $getnums;?>">
+				<input type="hidden" name="consid" value="<?php echo $id;?>">
+				<input type="hidden" name="username" value="<?php echo $boolstr['username'];?>" id="flagones">
+				<input type="hidden" name="pid" value="0">
+				<input type="hidden" name="act" value="pl_send_data">
+			</form>	
+				<div class="published">
+					<h6 class="video-pl-mum"><span>1</span>/300</h6>
+					<div class="published-a">
+						<!-- <a href="javascript:void(0);">取消</a> -->
+						<a href="javascript:void(0);" class="con-btn" onclick="pl_send_data();">发表</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	<?php }?>
+		<ul class="discussion-ul">
+<?php if($DataList2['txt']['html']!=array()){?>
+	<?php foreach($DataList2['txt']['html'] as $k=>$v){?>	
+			<li>
+				<strong><img src="<?php echo $v['pic'];?>" alt=""></strong>
+				<div class="discussionbox">
+					<div class="discussiondiv">
+						<h3>
+							<div class="name flagtwos"><?php echo $v['username'];?></div>
+							<span><?php echo $v['publitime'];?></span>
+						<?php if($boolstr['username']!=$v['username']){?>	
+							<a class="hfu-but" href="javascript:void(0);"  onclick="repl_shows_data(this,'<?php echo $k;?>');" >回复</a>
+						<?php }?>	
+						</h3>
+
+						<div class="text-div"><?php echo $v['body'];?></div>
+
+						<div class="reply-box">
+							<form class="GetFormData_return">
+								<textarea name="body" placeholder="回复..." class="setTxt_all2"></textarea>
+								<input type="hidden" name="numbers" value="<?php echo $getnums;?>">
+								<input type="hidden" name="consid" value="<?php echo $id;?>">
+								<input type="hidden" name="username" value="<?php echo $boolstr['username'];?>">
+								<input type="hidden" name="pid" value="<?php echo $v['id'];?>">
+								<input type="hidden" name="act" value="pl_send_data">
+							</form>
+							<input type="submit" value="回复" class="subimt con-btn" onclick="repl_send_data('<?php echo $k;?>');">							
+						</div>
+					</div>
+
+					<div class="discussiondiv">
+		<?php if($v['child']!=array()){?>
+			<?php foreach($v['child'] as $ks=>$vs){?>		
+						<h3>
+							<div class="name"><b class="b1"><?php echo $vs['username'];?></b>回复<b class="b2"><?php echo $v['username'];?></b></div>
+							<span><?php echo $vs['publitime'];?></span>
+						</h3>
+						<div class="text-div"><?php echo $vs['body'];?></div>						
+			<?php }?>			
+		<?php }?>				
+						<div class="give" style="margin-top:15px;">
+							<h4><?php echo count($v['child']);?></h4>
+							<h5 onclick="Give(this,'<?php echo $k;?>','<?php echo $v['id'];?>');"><?php echo $v['thumbs_up'];?></h5>
+						</div>
+					</div>			
+				</div>
+			</li>
+	<?php }?>
+<?php }?>			
+		</ul>
+	</div>
+</div>
+<?php if($DataList2['txt']['html']!=array()){?>
+	<div class="content-width con-main more-btn">
+		<a href="javascript:void(0);" onclick="GetClinkAll(this);">加载更多</a>
+		<a href="javascript:void(0);" style="display:none;"><img src="<?php echo apth_url('subject/htx/images/htx_loading.gif');?>" class="loading_gd" align="absmiddle" style="display:inline;width:15px;" alt="加载更多"/> 加载更多</a>
+		<a href="javascript:void(0);" style="display:none;">加载完毕</a>
+	</div>
+<?php }?>
+<!-- 分享-->
+<div class="share-div">
+	<div class="gb_resLay">
+		<div class="gb_res_t"><span>分享到</span><i></i></div>
+		<div class="bdsharebuttonbox">
+			<ul class="gb_resItms">
+				<li> <a href="" title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin" ></a>微信好友 </li>
+
+				<li> <a href="" title="朋友圈" href="#" class="bds_renren" data-cmd="renren" ></a>朋友圈 </li>
+
+				<li> <a href="" title="分享到QQ好友" href="#" class="bds_sqq" data-cmd="sqq" ></a>QQ好友 </li>
+
+				<li> <a href="" title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone" ></a>QQ空间 </li>
+
+				<li> <a href="" title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq" ></a>腾讯微博 </li>
+
+				<li> <a href="" title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina" ></a>新浪微博 </li>
+			</ul>
+		</div>
+		<div class="outdiv">
+			<img src="<?php echo apth_url('subject/htx/images/icon-27.png');?>" alt="">
+		</div>	
+	</div>
+</div>
+
+<!-- 底部 菜单-->
+<?php require('menu.html');?>
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script>
+<script type="text/javascript" src="<?php echo apth_url('subject/htx/ckplayer/ckplayer.js');?>"></script>
+<script>
+var videoObject = {
+		container: '#video_main_url',//“#”代表容器的ID，“.”或“”代表容器的class
+		variable: 'player',//该属性必需设置，值等于下面的new chplayer()的对象
+		//loaded: 'loadedHandler', //当播放器加载后执行的函数
+		//poster: 'http://127.0.0.1/thiscmssystem/subject/htx/images/help_banner.png', //封面图片
+		drag: 'start', //拖动的属性
+		seek: 0, //默认跳转的时间
+		autoplay: true, //是否自动播放
+		//广告部分开始
+		//adpause: '/ueditor/php/upload/image/20171107/htx_5a014ef8ae2199.79253397.jpg',
+		//adpausetime: '5,5',
+		//adpauselink: '<?php echo apth_url();?>',
+		//广告部分结束
+		flashplayer:false,//如果强制使用flashplayer则设置成true
+		mobileCkControls:false,//是否在移动端（包括ios）环境中显示控制栏
+		video:{
+			file:'<?php echo $DataList2["txt"]["addess"];?>',//视频地址
+			type:'video/m3u8'
+		}
+	};
+var player=new ckplayer(videoObject);
+//未登录
+function LogInImmediately(){
+	layer.open({
+	    content: '请先登录'
+	    ,skin: 'msg'
+	    ,time: 2
+	});
+}
+//字
+var maxzi = 300;
+$(function(){
+	$(".setTxt_all").keyup(function(){
+		var strlen = $(".setTxt_all").val();
+		var xlen = strlen.length;
+		if( xlen > maxzi )
+		{
+			layer.open({
+			    content: '内容不能超出300个字符'
+			    ,skin: 'msg'
+			    ,time: 2
+			});
+		}	
+		$(".video-pl-mum").html((xlen==0?1:xlen)+'/'+maxzi);
+	});
+});
+//评论
+function pl_send_data(){
+	var strlen = $(".setTxt_all").val();
+	var xlen = strlen.length;
+	if(strlen == ''){
+		layer.open({
+		    content: '请输入评论内容'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	if( xlen > maxzi ){
+		layer.open({
+		    content: '内容不能超出300个字符'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	var ds = $("#GetFormData").serialize();
+	$.ajax({
+		url:'<?php echo apth_url("index.php");?>',
+		type:'post',
+		data:ds+'&maxs='+$(".discussion-ul li").length, 
+		success:function(msg){
+			var obj = eval("("+msg+")");
+			$(".discussion-ul").empty();
+			if(obj.error == 0){
+				$(".discussion-ul").append(obj.txt);
+				$("#GetFormData")[0].reset();
+				$(".video-pl-mum").html('1/'+maxzi);
+			}else{
+				layer.open({
+				    content: obj.txt
+				    ,skin: 'msg'
+				    ,time: 2
+				});
+			}
+		}
+	});
+}
+//显示
+function repl_shows_data(t,i){
+	var ones = $("#flagones").val();
+	var twos = $(".flagtwos:eq("+i+")").text();
+	if(ones==twos){
+		return false;
+	}	
+	
+	if($(t).html() == '回复'){
+		$(t).html('取消');	
+		$(t).css({"color":"rgb(255, 153, 0)"});
+		$(".reply-box:eq("+i+")").show();
+	}else{
+		$(t).html('回复');
+		$(t).css({"color":"rgb(51, 51, 51)"});
+		$(".reply-box").hide();
+	}
+}
+//回复
+function repl_send_data(i){
+	var ones = $("#flagones").val();
+	var twos = $(".flagtwos:eq("+i+")").text();
+	if(ones==twos){
+		layer.open({
+		    content: '不允许回复刷屏'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	var strlen = $(".setTxt_all2:eq("+i+")").val();
+	var xlen = strlen.length;
+	if(strlen == ''){
+		layer.open({
+		    content: '请输入评论内容'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	if( xlen > maxzi ){
+		layer.open({
+		    content: '内容不能超出300个字符'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	var ds = $(".GetFormData_return:eq("+i+")").serialize();
+	$.ajax({
+		url:'<?php echo apth_url("index.php");?>',
+		type:'post',
+		data:ds+'&maxs='+$(".discussion-ul li").length, 
+		success:function(msg){
+			var obj = eval("("+msg+")");
+			$(".discussion-ul").empty();
+			if(obj.error == 0){
+				$(".discussion-ul").append(obj.txt);
+			}else{
+				layer.open({
+				    content: obj.txt
+				    ,skin: 'msg'
+				    ,time: 2
+				});
+			}
+		}
+	});
+}
+//点赞
+function Give(t,k,d)
+{
+	$.post('<?php echo apth_url("index.php");?>',{'act':'pl_dianzhan_up','d':d},function(data){
+		var obj = eval("("+data+")");
+		if( obj.error == 0 )
+		{
+			if( obj.txt != 'OK' )
+			{	
+				$(t).html( obj.txt );
+			}
+		}	
+		else
+		{
+			layer.open({
+			    content: obj.txt
+			    ,skin: 'msg'
+			    ,time: 2
+			});
+		}	
+	});
+}
+//加载更多
+var page = 2;
+function GetClinkAll(t){
+	var n = '<?php echo $getnums;?>';
+	var d = '<?php echo $id;?>';
+	var s = '1';
+	var op = '<?php echo $boolstr['username'];?>';
+	var flag_load = '';
+	$.ajax({
+		url:'<?php echo apth_url("index.php");?>',
+		type:'POST',
+		data:'act=get_loading_all&n='+n+'&d='+d+'&s='+s+'&page='+page+'&op='+op+'&flag='+flag_load,
+		beforeSend:function(){
+			$(".more-btn a").hide();
+			$(".more-btn a:eq(1)").show();
+		},
+		success:function(data){
+			var obj = eval("("+data+")");
+			$(".more-btn a").hide();
+			if(obj.txt!='OK'){
+				$(".discussion-ul").append(obj.txt);
+				$(t).show();
+			}else{
+				$(".more-btn a:eq(2)").show();
+			}
+    	}
+	 });
+	page++;
+}
+</script>
+</body>
+</html>

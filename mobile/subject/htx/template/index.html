@@ -1,0 +1,216 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport"/>
+<meta name ="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge ,chrome=1" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title><?php echo $global['title'];?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/banner.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/swiper-3.2.7.min.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<script src="<?php echo apth_url('subject/htx/js/jquery.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/amazeui.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/common.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/video-details2.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script>
+<script type="text/javascript" src="<?php echo apth_url('subject/htx/js/swiper-3.4.0.jquery.min.js');?>" ></script> <!-- 章节 -->
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+</head>
+<body>
+<!-- 头部 -->
+<div class="headbox">
+	<div class="headdiv">				
+		<div class="logo">
+			<a href="<?php echo apth_url('');?>">
+				<img src="<?php echo apth_url('subject/htx/images/logo.png');?>" alt="LOGO">
+			</a>
+		</div>		
+		<?php require('pic.html');?>
+	</div>
+</div>
+<!-- /头部 -->
+
+<!-- 导航 -->
+<div class="nav-meun">
+	<div class="swiper-container swiper1">
+		<div class="swiper-wrapper">
+			<div class="swiper-slide selected"><a href="<?php echo GCW_URL_IN($member_all);?>">总首页</a></div>
+			<div class="swiper-slide"><a href="<?php echo apth_url('?act=data');?>">资料下载</a></div>
+			<div class="swiper-slide"><a href="<?php echo apth_url('?act=video');?>">培训视频</a></div>
+			<div class="swiper-slide"><a href="<?php echo apth_url('?act=zt_project');?>">专题服务</a></div>
+			<div class="swiper-slide"><a href="<?php echo apth_url('?act=help');?>">帮助中心</a></div>
+		</div>
+	</div>
+</div>
+
+<!-- 轮播 -->
+<div class="banner">
+	<div class="am-slider am-slider-default" data-am-flexslider="{playAfterPaused: 1000}">
+		<ul class="am-slides">
+			<li><img src="<?php echo apth_url('subject/htx/images/banner01.jpg');?>" /></li>
+			<li><img src="<?php echo apth_url('subject/htx/images/banner02.jpg');?>" /></li>
+			<li><img src="<?php echo apth_url('subject/htx/images/banner03.jpg');?>" /></li>
+		</ul>
+	</div> 
+</div>
+<!-- /轮播 -->
+<div class="search-box10">
+	<div class="search">
+		<a href="<?php echo apth_url('?act=search');?>">资料下载、视频培训</a>
+		<a href="<?php echo apth_url('?act=search');?>" class="search-btn"><img src="<?php echo apth_url('subject/htx/images/icon-01.png');?>" alt=""></a>
+	</div>
+</div>
+<!-- 菜单 -->
+<div class="menudiv">
+	<ul class="ul-menu">
+		<li>
+			<a href="<?php echo apth_url('?act=data');?>" data-ripple>
+				<img src="<?php echo apth_url('subject/htx/images/icon-03.png');?>" alt="资料">
+				<p>资料</p>
+			</a>
+		</li>
+		<li>
+			<a href="<?php echo apth_url('?act=video');?>" data-ripple>
+				<img src="<?php echo apth_url('subject/htx/images/icon-04.png');?>" alt="视频">
+				<p>视频</p>
+			</a>
+		</li>
+		
+		<li>
+			<a href="<?php echo apth_url('?act=zt_project');?>" data-ripple>
+				<img src="<?php echo apth_url('subject/htx/images/icon-05.png');?>" alt="专题">
+				<p>专题</p>
+			</a>
+		</li>
+				
+		<li>
+			<a href="<?php echo apth_url('?act=questions');?>" data-ripple>
+				<img src="<?php echo apth_url('subject/htx/images/icon-07.png');?>" alt="提问">
+				<p>提问</p>
+			</a>
+		</li>
+
+		<li>
+			<a href="<?php echo apth_url('?act=AndAnswer');?>" data-ripple>
+				<img src="<?php echo apth_url('subject/htx/images/icon-06.png');?>" alt="问答">
+				<p>问答</p>
+			</a>
+		</li>
+
+		<li>
+			<a href="<?php echo apth_url('?act=help');?>" data-ripple>
+				<img src="<?php echo apth_url('subject/htx/images/icon-08.png');?>" alt="帮助">
+				<p>帮助</p>
+			</a>
+		</li>
+
+		
+	</ul>
+</div>
+<!-- /菜单 -->
+
+<!-- 专题 -->
+<div class="content-width con-main">
+	<ul class="ul-project">
+<?php if( !empty( $myzt ) ){?>	
+	<?php foreach( $myzt as $k => $v ){?>
+		<?php if($v['n1']>0){?>
+			<li>
+				<a href="<?php echo apth_url('?act=ThemIndex&id='.$v['id']);?>">
+					<div class="ul-project-img"><img src="<?php echo $v['pic'];?>" alt="<?php echo $v['username'];?>"></div>
+					<h3>#<?php echo $v['username'];?>#</h3>
+					<p><span>属于她的专题</span></p>
+				</a>			
+			</li>
+		<?php }?>
+	<?php }?>	
+<?php }?>
+	</ul>
+</div>
+<!-- /专题 -->
+
+<!-- 资料 tab-->
+<div class="content-width con-main">
+	<div class="tab">
+	    <dl id="dl1">
+	        <dt class="tab-dt">推荐</dt>
+	        
+	        <dt>资料下载</dt>
+
+	        <dt>视频培训</dt>
+	        
+	        <dt>热门话题</dt>
+	    </dl>
+	    <div class="clear"></div>
+	    <input type="hidden" id="flag_dt" value="0"/>
+	    <input type="hidden" id="pageTotal" value="['<?php echo $tuijian['pageTotal'];?>','<?php echo $pageDownload['pageTotal'];?>','<?php echo $pageVideo['pageTotal'];?>','<?php echo $pageHot['pageTotal'];?>']"/>
+	    <div class="tab-1">
+	    	<!--推荐-->
+	        <div class="tab-div tab-block">
+				<ul class="ul-learn">
+<?php if($tuijian['rows']!='end'){?>	
+	<?php foreach($tuijian['rows'] as $k=>$v){$j = ParsingJson($v['coverapth']);?>	
+			<?php if( $v['typestate'] == 1 ){?>		
+					<li> 					
+						<a href="<?php echo apth_url('?act=data_content&consid='.$v['id']);?>" class="ul-learn-a">					
+							<img src="<?php echo get_pixels($tuijian['link1'].$j[0],350,230);?>" alt="<?php echo $v['title'];?>">							
+						</a>						
+						<div class="middle">
+							<h3><a href="<?php echo apth_url('?act=data_content&consid='.$v['id']);?>"><?php echo subString($v['title'],11);?></a></h3>
+							<section>
+								<span><?php echo $v['statefile']==1?'通用':$v['areasmax'];?></span>
+								<span><?php echo $v['flname'];?></span>
+								<b><?php echo $v['integral']!=0?'&yen;'.$v['integral']:'免费';?></b>
+							</section>
+						</div>
+						<a href="<?php echo apth_url('?act=data_content&consid='.$v['id']);?>" class="learn-btn">下载</a>
+					</li>
+			<?php }else{?>
+					<li> 
+						<a href="" class="ul-learn-a">
+							<img src="<?php echo get_pixels($tuijian['link2'].$j[0],350,230);?>" alt="<?php echo $v['tags'];?>">
+							<b><?php echo $v['tvlength']==0?'':formatSeconds($v['tvlength']);?></b>
+						</a>
+						<div class="middle">
+							<h3><a href=""><?php echo subString($v['tags'],11);?></a></h3>
+							<section>
+								<span><?php echo $v['statefile']==1?'通用':$v['areasmax'];?></span>
+								<span><?php echo $v['flname'];?></span>
+								<b><?php echo $v['integral']!=0?'&yen;'.$v['integral']:'免费';?></b>
+							</section>
+						</div>
+						<a href="" class="learn-btn"><img src="<?php echo apth_url('subject/htx/images/icon-17.png');?>" alt=""></a>
+					</li>
+		   <?php }?>			
+	<?php }?>				
+<?php }else{?>
+			<li style="line-height:50px;text-align:center;color:#999999;">暂时没有内容</li>
+<?php }?>				
+				</ul>
+	        </div>
+	        
+	    </div> 
+	</div>
+</div>
+
+<div style="text-align:center;padding-top:10px;display:none;" id="pri_text" data-url="<?php echo apth_url('subject/htx/images/htx_loading.gif');?>">
+	   <img src="<?php echo apth_url('subject/htx/images/htx_loading.gif');?>" style="display:inline;width:15px;" alt="加载更多">
+</div>
+<!-- /资料 tab-->
+<!-- 底部 菜单-->
+<?php require('menu.html');?>
+
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/waterfall.js');?>"></script>
+</body>
+</html>

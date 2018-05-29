@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title>开通专题-企业</title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<script src="<?php echo apth_url('subject/htx/js/jquery.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/personal/tab.js');?>"></script> 
+
+</head>
+<body>
+<!-- 头部 -->
+<div class="headbox headbox-a">
+	<div class="return" data-ripple><a href="<?php echo apth_url('?act=zt_project');?>">返回</a></div>
+	<div class="location">专题-企业</div>
+	<?php require('pic.html');?>
+</div>
+<!-- /头部 -->
+
+<div class="swiper-container">
+	<div class="swiper-wrapper">   			            
+		<div class="swiper-slide to-nfor-div search-none">         
+            <ul class="to-nfor-ul">
+            	<li>
+            		<div class="nfor-ul-fl">关联账号：</div>
+            		<div class="nfor-ul-fr"><?php echo $member_all['username'];?></div>
+            	</li>
+
+            	<li>
+            		<div class="nfor-ul-fl">公司名称：</div>
+            		<div class="nfor-ul-fr ask-div">
+            			<input type="hidden" name="subordinate" value="2"/>
+						<input type="text" name="useras" placeholder=""/>
+						<b>* 要求公司名称与营业热照上相符</b>
+            		</div>
+            	</li>
+
+            	<li>
+            		<div class="nfor-ul-fl">经营范围：</div>
+            		<div class="nfor-ul-fr ask-div">
+						<textarea name="scope" placeholder="必须与营业执照相符"><?php echo $member_all['scope']==''?'':$member_all['scope'];?></textarea>
+            		</div>
+            	</li>
+
+            	<li>
+            		<div class="nfor-ul-fl">公司简介：</div>
+            		<div class="nfor-ul-fr ask-div">
+						<textarea name="abstract" placeholder="字数不能小于30个并且不能大于500个字符。"><?php echo $member_all['abstract']==''?'':$member_all['abstract'];?></textarea>
+            		</div>
+            	</li>
+ 
+            	<li>
+            		<div class="nfor-ul-fl nfor-phone">手机号码：</div>
+            		<div class="nfor-ul-fr ask-div">
+						<input name="tel" type="text" value="<?php echo $member_all['tel'];?>" />
+            		</div>
+            	</li>
+
+            	<li>
+            		<div class="nfor-ul-fl">验证码：</div>
+					<div class="nfor-ul-fr ask-div ask-code to-code">
+						<input type="text" name="virify" placeholder="请输入验证码">
+						<a href="javascript:void(0);" class="yzm-btn GetVirify" onclick="SetPassword();">获取验证码</a>
+						<a href="javascript:void(0);" class="yzm-btn GetVirify" style="display:none;"></a>
+					</div>			
+            	</li>
+
+            	<li>
+            		<div class="nfor-ul-fl">营业执照：</div>
+					<div class="nfor-ul-fr">
+						<div class="card-picture">
+							<div class="picture-a">
+								<div class="picture-img"><img src="<?php echo apth_url('subject/htx/images/zhiz.jpg');?>" class="htx_imgclick" alt="营业执照"></div>
+								<div class="picture-btn">
+									<p>选择图片</p>
+									<input type="file" onchange="previewImage(this,0);" name="file" id="fileput1"/>
+								</div>
+							</div>
+						</div>
+						<b class="b">要求照片格式“jpg、png、gif”大小不超出2M，字迹清晰可见，以便工作人员审核；人工审核，需1-2个工作日内完成。</b>
+					</div>			
+            	</li>
+            </ul>
+
+			<div class="xy-div">
+				提交表示愿意遵守<a href="">《火天信资料库平台服务相关协议》</a>
+			 	<a href="javascript:void(0);" class="con-btn to-info-btn SendFrom_All">提交资料</a>
+			</div>			
+
+        </div>
+        
+        </div>
+	</div>
+<!-- 底部 菜单-->
+<?php require('menu.html');?>
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script> 
+<script>
+var relphone =/^0?(13|14|15|17|18)[0-9]{9}$/;
+var model = '';
+//获取手机验证码
+var i=60,intval;
+function SetPassword(){
+	var PhoneAndMail = $("[name='tel']").val();		
+	if( PhoneAndMail == '' ){
+		layer.open({
+		    content: '请输入手机号'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	if(!relphone.test(PhoneAndMail)){
+		layer.open({
+		    content: '手机号不正确'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}	
+	//发关短信...
+	$.ajax({
+		url:'<?php echo EXTLINK_IN;?>',
+		type:'post',
+		data:'api=SMS_Code&tel='+PhoneAndMail+'&flag=2&id=<?php echo $member_all["id"];?>',
+		beforeSend:function(){
+			intval = setTimeout(Countdown,1000);
+		},
+		complete:function(){
+			//layer.close(loadings);
+		},    
+		success:function(msg){
+			//console.log(msg);return false;			
+			var obj = eval("("+msg+")");
+			model = obj.model;
+			if( obj.msg != 'OK' ){
+				clearInterval(intval);
+				$(".GetVirify").hide(),$(".GetVirify:eq(0)").show();
+		    	i = 60;//重置
+				layer.open({
+				    content: obj.txt
+				    ,skin: 'msg'
+				    ,time: 2
+				});
+			}	
+		}
+	});	
+}
+//定时器
+function Countdown()
+{	
+	$(".GetVirify").hide(),$(".GetVirify:eq(1)").show();
+	$(".GetVirify:eq(1)").html('已发送（'+i+'）');
+	i--;
+	if(i<=1){		
+		clearInterval(intval);
+		
+		//调回
+		$(".GetVirify").hide(),$(".GetVirify:eq(0)").show();
+		i = 60;//重置
+		return false;
+	}
+	intval = setTimeout(Countdown,1000);
+}
+
+var flag_user = "<?php echo $boolstr;?>";
+//切换
+$(".search-ul li").click(function(){
+	var i = $(this).index();
+	var int = i==0?1:2;
+	//添加
+	$("[name='subordinate']").val(int);
+});
+//个人提交表单
+$(function(){
+	$(".SendFrom_All:eq(0)").click(function(){
+		 if(flag_user == ''){
+			 layer.open({
+				    content: '请先登录'
+				    ,skin: 'msg'
+				    ,time: 2
+				});	
+			 return false;
+		 }
+		 if($("[name='useras']").val() == ''){
+			 layer.open({
+				    content: '请输入真实姓名'
+				    ,skin: 'msg'
+				    ,time: 2
+				});	
+			 return false;
+		 }
+		 if($("[name='scope']").val() == ''){
+			 layer.open({
+				    content: '请输入经营范围'
+				    ,skin: 'msg'
+				    ,time: 2
+				});	
+			 return false;
+		 }
+		 if($("[name='abstract']").val() == ''){
+			 layer.open({
+				    content: '请输入公司简介'
+				    ,skin: 'msg'
+				    ,time: 2
+				});	
+			 return false;
+		 }
+		 if($("[name='tel']").val() == ''){
+			 layer.open({
+				    content: '请输入手机号码'
+				    ,skin: 'msg'
+				    ,time: 2
+				});	
+			 return false;
+		 }
+		 if($("[name='virify']").val() == ''){
+			 layer.open({
+				    content: '请输入验证码'
+				    ,skin: 'msg'
+				    ,time: 2
+				});	
+			 return false;
+		 }
+		 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+		 var formData = new FormData();
+		 formData.append("act", "MPersonalTopic_ent");
+		 formData.append("id", "<?php echo $member_all['id'];?>");	 
+		 formData.append("model", model);
+		 formData.append("username", "<?php echo $member_all['tel'];?>");
+		 formData.append("subordinate", $("[name='subordinate']").val());
+		 formData.append("useras", $("[name='useras']").val());
+		 formData.append("scope", $("[name='scope']").val());
+		 formData.append("abstract", $("[name='abstract']").val());
+		 formData.append("tel", $("[name='tel']").val());
+		 formData.append("virify", $("[name='virify']").val());
+         formData.append("file1", document.getElementById("fileput1").files[0]);
+         $.ajax({
+             url: "<?php echo EXTLINK;?>",
+             type: "POST",
+             data: formData,
+             contentType: false,
+             processData: false,
+             success:function(data){
+            	 var obj = eval("("+data+")");
+            	 if( obj.error == 0 ){
+            		 location.href="<?php echo apth_url('?act=to_information_ent&contid='.$member_all['tel']);?>";
+            	 }else{
+            		 layer.open({
+     				    content: obj.txt
+     				    ,skin: 'msg'
+     				    ,time: 2
+     				})
+            	 }
+             }
+         });
+         return false;
+	});
+});
+/*企业*/
+function previewImage(file,i){	
+	if(file.files && file.files[0]){
+		var img = $(".htx_imgclick:eq("+i+")")[0];
+		var reader = new FileReader(),rFilter = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;;  				
+		
+		var size = file.size;
+		var Max_Size = 2000*1024;
+		var width,height;
+		var image = new Image();
+				
+		reader.onload = function(evt){
+			img.src=evt.target.result;
+			
+			var data = evt.target.result;
+			 image.onload=function(){
+				width = image.width;
+				height = image.height;
+				/*
+				if(width>img.width && height>img.height){ 
+					alert("图片宽高不符合要求 NO."+(i+1)+" 请上传宽高"+img.width+"*"+img.height+"像素图片");
+				}	
+				*/
+			};
+			image.src= data;			 
+		} 		
+	
+	    if(!rFilter.test(file.files[0].type)) { alert("照片格式不正确 "); return; }	
+	    if(size>Max_Size){ alert("照片大小不能超出2M"); return; }
+	    
+	    reader.readAsDataURL(file.files[0]);
+    }	    
+}
+</script> 
+</body>
+</html>

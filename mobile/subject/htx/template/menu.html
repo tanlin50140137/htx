@@ -1,0 +1,166 @@
+<div class="footer-menu">
+	<ul class="footer-menu-ul">
+		<li>
+			<a href="<?php echo apth_url('');?>" <?php echo $state_select==0?'class="a"':'';?> >
+				<img src="<?php echo $state_select==0?apth_url('subject/htx/images/icon-12.png'):apth_url('subject/htx/images/icon-12.png');?>" alt="首页">
+				<p>首页</p>
+			</a>
+		</li>
+
+		<li class="menu-message">
+			<a href="<?php echo apth_url('?act=message');?>" <?php echo $state_select==1?'class="a"':'';?> >
+				<img src="<?php echo $state_select==1?apth_url('subject/htx/images/icon-13.png'):apth_url('subject/htx/images/icon-13.png');?>" alt="消息">
+				<p>消息</p>
+		<?php if($Ins['error'] == 0){?>		
+				<b></b>
+		<?php }?>			
+			</a>
+		</li>
+
+		<li class="more-icon">
+			<a href="javascript:void(0);" <?php echo $state_select==2?'class="a"':'';?> >
+				<img src="<?php echo $state_select==2?apth_url('subject/htx/images/icon-14.png'):apth_url('subject/htx/images/icon-14.png');?>" alt="更多">
+				<p>更多</p>
+			</a>
+		</li>
+
+		<li class="menu-message">
+			<a href="<?php echo apth_url('?act=found');?>" <?php echo $state_select==3?'class="a"':'';?> >
+				<img src="<?php echo $state_select==3?apth_url('subject/htx/images/icon-15.png'):apth_url('subject/htx/images/icon-15.png');?>" alt="发现">
+				<p>发现</p>
+		<?php if($fx != 0){?>		
+				<b></b>
+		<?php }?>		
+			</a>
+		</li>
+<?php if($boolstr != false){?>	
+		<li>
+			<a href="<?php echo apth_url('?act=mypersonal');?>" <?php echo $state_select==4?'class="a"':'';?> >
+				<img src="<?php echo $state_select==4?apth_url('subject/htx/images/icon-16.png'):apth_url('subject/htx/images/icon-16.png');?>" alt="我的">
+				<p>我的</p>
+			</a>
+		</li>
+<?php }else{?>
+		<li>
+			<!-- <a href="<?php echo apth_url('?act=login_reset');?>" <?php echo $state_select==4?'class="a"':'';?> >  -->
+			<a href="javascript:void(0);" onclick="showccc();" <?php echo $state_select==4?'class="a"':'';?> >
+				<img src="<?php echo $state_select==4?apth_url('subject/htx/images/icon-16.png'):apth_url('subject/htx/images/icon-16.png');?>" alt="我的">
+				<p>我的</p>
+			</a>
+		</li>
+<?php }?>		
+	</ul>
+</div>
+<script>
+$(function(){
+	$(".footer-menu-ul li a").each(function(index){
+		$(this).click(function(){
+			$.post('<?php echo apth_url("index.php");?>',{'act':'SetFlag','flag':index},function(d){});
+		});
+	});
+});
+</script>
+<!-- /底部 菜单-->
+<!-- 更多 -->
+<div class="bott-morebox">
+	<div class="bott-more">
+<?php if($boolstr != ''){?>	
+		<div class="more-top">
+			<a href="<?php echo apth_url('?act=mypersonal');?>" class="more-portrait">
+				<img src="<?php echo $boolstr['pic'];?>" alt="已登录">
+			</a>
+			<section>
+				<h3><?php echo $boolstr['username'];?></h3>
+				<p><?php echo $member_all['autograph'];?></p>
+			</section>
+		</div>
+<?php }else{?>	
+		<div class="more-top more-top1">
+			<!-- <a href="<?php echo apth_url('?act=login_reset');?>" class="more-portrait1"><img src="<?php echo apth_url('subject/htx/images/icon-25.png');?>" alt="未登录"></a>  -->
+			<a href="javascript:void(0);" onclick="showccc();" class="more-portrait1"><img src="<?php echo apth_url('subject/htx/images/icon-25.png');?>" alt="未登录"></a>
+			<a href="<?php echo apth_url('?act=QQLogin_htx&call='.apth_url('index.php?act=QReturnData_url').'&flag=1');?>" class="more-portrait1"><img src="<?php echo apth_url('subject/htx/images/icon-26.png');?>" alt="未登录"></a>
+			<section>
+				<h3>登录火天信资料库</h3>
+				<p>使用帐号登/QQ快捷登录</p>
+			</section>
+		</div>
+<?php }?>
+
+		<ul class="footer-menu-ul more-ul">
+			<li>
+		<?php if($boolstr != ''){?>	
+				<a href="<?php echo apth_url('?act=mypersonal_in&locat=2');?>" style="opacity: 1;">
+					<img src="<?php echo apth_url('subject/htx/images/icon-20.png');?>" alt="我的课程">
+					<p>我的课程</p>
+				</a>
+		<?php }else{?>
+				<a href="javascript:void(0);" style="opacity: 0.2;">
+					<img src="<?php echo apth_url('subject/htx/images/icon-20.png');?>" alt="我的课程">
+					<p>我的课程</p>
+				</a>
+		<?php }?>
+			</li>
+
+			<li>
+		<?php if($boolstr != false){?>		
+				<a href="<?php echo apth_url('?act=mypersonal_in&locat=3');?>" style="opacity: 1;">
+					<img src="<?php echo apth_url('subject/htx/images/icon-21.png');?>" alt="我的提问">
+					<p>我的提问</p>
+				</a>
+		<?php }else{?>
+				<a href="javascript:void(0);" style="opacity: 0.2;">
+					<img src="<?php echo apth_url('subject/htx/images/icon-21.png');?>" alt="我的提问">
+					<p>我的提问</p>
+				</a>
+		<?php }?>		
+			</li>
+
+			<li>
+		<?php if($boolstr != false){?>	
+				<a href="<?php echo apth_url('?act=mypersonal_in&locat=6');?>" style="opacity: 1;">
+					<img src="<?php echo apth_url('subject/htx/images/icon-22.png');?>" alt="个人设置">
+					<p>个人设置</p>
+				</a>
+		<?php }else{?>
+				<a href="javascript:void(0);" style="opacity: 0.2;">
+					<img src="<?php echo apth_url('subject/htx/images/icon-22.png');?>" alt="个人设置">
+					<p>个人设置</p>
+				</a>
+		<?php }?>		
+			</li>
+
+			<li>
+		<?php if($boolstr != false){?>	
+				<a href="<?php echo apth_url('?act=mypersonal_in&locat=4');?>" style="opacity: 1;">
+					<img src="<?php echo apth_url('subject/htx/images/icon-23.png');?>" alt="订单中心">
+					<p>订单中心</p>
+				</a>
+		<?php }else{?>
+				<a href="javascript:void(0);" style="opacity: 0.2;">
+					<img src="<?php echo apth_url('subject/htx/images/icon-23.png');?>" alt="订单中心">
+					<p>订单中心</p>
+				</a>
+		<?php }?>		
+			</li>
+
+			<li>
+		<?php if($boolstr != false){?>		
+				<a href="<?php echo apth_url('?act=SignOut');?>" style="opacity: 1;">
+					<img src="<?php echo apth_url('subject/htx/images/icon-24.png');?>" alt="退出">
+					<p>退出</p>
+				</a>
+		<?php }else{?>
+				<a href="javascript:void(0);" style="opacity: 0.2;">
+					<img src="<?php echo apth_url('subject/htx/images/icon-24.png');?>" alt="退出">
+					<p>退出</p>
+				</a>
+		<?php }?>		
+			</li>
+		</ul>
+
+		<div class="outdiv">
+			<img src="<?php echo apth_url('subject/htx/images/icon-27.png');?>" alt="">
+		</div>
+	</div>
+</div>
+<script src="<?php echo apth_url('subject/htx/js/personal/login.js');?>"></script> 

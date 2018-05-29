@@ -1,0 +1,326 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport"/>
+<meta name ="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge ,chrome=1" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title><?php echo $global['title'];?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/pinglun.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/personal/tab.js');?>"></script> 
+</head>
+
+<body>
+<!-- 头部 -->
+<div class="headbox headbox-a">
+	<div class="return" data-ripple>返回</div>
+	<div class="location">回答</div>
+</div>
+<!-- /头部 -->
+<div class="answer-box">
+	<div class="note-questions-top answer-top">
+		<strong class="note-portrait">
+			<img src="<?php echo $info['row']['pic'];?>" alt="<?php echo $info['row']['username'];?>">
+		</strong>
+		
+		<div class="answer-name"><?php echo $info['row']['username'];?></div>
+
+		<div class="give answer-give">
+			<h4><b><?php echo $info['count'];?></b>个回答</h4>
+			<h5 class="give-h5"><?php echo $info['row']['browsing'];?></h5>
+		</div>
+	</div>
+
+	<div>
+		<div class="answer-div1">
+			<div class="answer-div1-p1">来自话题：</div>
+			<div class="answer-div1-p2"><?php echo $info['row']['title'];?> “<?php echo $info['row']['flname'];?>”</div>
+		</div>
+		<div class="answer-div1">
+			<div class="answer-div1-p1">问题描述：</div>
+			<div class="answer-div1-p2"><?php echo $info['row']['body'];?></div>
+		</div>
+	</div>
+</div>
+
+<div class="widthdiv-a">
+	<div class="widthdiv">
+		<h5 class="h5div">添加回答</h5>		
+		<div class="comment-box">
+			<!-- -->			
+			<div class="comment-b">
+				<form id="frm_data">
+					<textarea name="body" placeholder="随便说两句..." class="comment"></textarea>
+					<div class="published">
+						<div class="published-a">
+							<input type="hidden" name="userid" value="<?php echo $info['row']['myid'];?>">
+		                	<input type="hidden" name="notesid" value="<?php echo $info['row']['id'];?>">
+		                	<input type="hidden" name="myid" value="<?php echo $member_all['id'];?>">
+		                	<input type="hidden" name="pid" value="0">
+		                	<input type="hidden" name="cipid" value="<?php echo $info['row']['cipid'];?>">
+		                	<input type="hidden" name="fhpid" value="<?php echo $info['row']['fhpid'];?>">
+		                	<input type="hidden" name="flname" value="<?php echo $info['row']['flname'];?>">
+							<a href="javascript:void(0);" class="con-btn" onclick="Publish(this);">提交</a>
+						</div>
+					</div>
+				</form>	
+			</div>
+		</div>
+
+		<ul class="discussion-ul">
+<?php if(!empty($info['anArr'])){?>
+	<?php foreach($info['anArr'] as $k=>$v){?>		
+			<li>
+				<strong><img src="<?php echo $v['pic'];?>" alt="<?php echo $v['username'];?>"></strong>
+				<div class="discussionbox">
+					<div class="discussiondiv">
+						<h3>
+							<div class="name"><?php echo $v['username'];?></div>
+							<span><?php echo get_day_formt($v['publitime']);?></span>
+							<div class="give">
+								<h4><?php echo count($v['child']);?></h4>
+								<h5 onclick="thumbs_up('<?php echo $v['id'];?>');"><?php echo $v['thumbs_up'];?></h5>
+							</div>
+						</h3>
+						<div class="text-div discussiondiv1">
+							<p><?php echo $v['body'];?></p>															
+							<a class="hfu-but hfu-but12" href="javascript:void(0);">回复</a>
+						</div>
+						<div class="reply-box">
+					<form class="frm_huifu">			
+							<textarea name="bodys" placeholder="回复..."></textarea>
+							<input type="hidden" name="userid" value="<?php echo $v['myid'];?>"/>
+			                <input type="hidden" name="notesid" value="<?php echo $v['notesid'];?>"/>
+			                <input type="hidden" name="myid" value="<?php echo $member_all['id'];?>"/>
+			                <input type="hidden" name="pid" value="<?php echo $v['id'];?>"/>
+			                <input type="hidden" name="cipid" value="<?php echo $v['cipid'];?>"/>
+			                <input type="hidden" name="fhpid" value="<?php echo $v['fhpid'];?>"/>
+			                <input type="hidden" name="flname" value="<?php echo $v['flname'];?>"/>
+							<input type="button" value="回复" onclick="huifu('<?php echo $k;?>');" class="subimt con-btn">	
+					</form>										
+						</div>
+					</div>
+	<?php if(!empty($v['child'])){?>
+			<?php foreach($v['child'] as $ks=>$vs){?>	
+					<div class="discussiondiv">
+						<h3>
+							<div class="name">
+								<strong class="strong-gai1"><img src="<?php echo $vs['pic'];?>" alt="<?php echo $vs['username'];?>"></strong>
+								<b class="b2"><?php echo $vs['username'];?></b>
+							</div>
+							<span><?php echo get_day_formt($vs['publitime']);?></span>
+						</h3>
+						<div class="text-div"><?php echo $vs['body'];?></div>
+					</div>
+		<?php }?>		
+	<?php }?>				
+				</div>
+			</li>
+	<?php }?>		
+<?php }?>			
+		</ul>
+	</div>
+</div>
+<!-- 
+<div class="content-width con-main more-btn">
+<a href="javascript:void(0);" onclick="LoadMore();">加载更多</a>
+</div>
+ -->
+<!-- 相关分类-->
+<div class="related-div">
+	<div class="widthdiv">
+		<h5 class="h5div ">相关分类</h5>
+		<ul class="related-ul">
+<?php if(!empty($info['CorClas_q'])){?>		
+	<?php foreach($info['CorClas_q'] as $k=>$v){?>	
+			<li>
+				<div class="note-questions-top answer-top related-div1">
+					<strong class="note-portrait">
+						<img src="<?php echo $v['pic'];?>" alt="<?php echo $v['username'];?>">
+					</strong>
+					
+					<div class="answer-name"><?php echo $v['username'];?></div>
+
+					<div class="give answer-give">
+						<h4><b><?php echo $v['follow'];?></b>人关注</h4>
+						<h5 class="give-h5"><a href="javascript:void(0);" class="gz-btn" onclick="myfollow('<?php echo $v['id'];?>');">+关注</a></h5>
+					</div>
+				</div>
+
+				<div class="related-text">
+					<p><?php echo $v['title'];?></p>
+					<span><b><?php echo $v['n1'];?></b>个回答</span>
+				</div>
+			</li>
+	<?php }?>		
+<?php }?>
+		</ul>
+	</div>	
+</div>
+
+<!-- 底部 菜单-->
+<?php require('menu.html');?>
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script>
+<script>
+/*历史返回*/
+$('.return').click(function(){
+	history.go(-1);
+});
+/*添加回答*/
+var boolstr = "<?php echo $boolstr;?>";
+function Publish(t){
+	if(boolstr == '' ){
+		layer.open({
+		     content:'请先登录'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	var body = $("[name='body']").val();
+	if( body == '' ){
+		layer.open({
+		     content:'请输入回答内容'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	$.ajax({
+		url:'<?php echo apth_url("index.php");?>',
+		type:'post',
+		data:'act=mQuestionAnswering&'+$("#frm_data").serialize(),		   
+		success:function(msg){
+			var obj = eval("("+msg+")");
+			if( obj.error == '0' )
+			{
+				layer.open({
+				     content:'提交成功'
+				    ,skin: 'msg'
+				    ,time: 2
+				    ,end:function(){
+				    	location.reload();
+				    }
+				});
+			}
+			else
+			{
+				layer.open({
+				     content:obj.txt
+				    ,skin: 'msg'
+				    ,time: 2
+				});
+			}	
+		}	
+	});
+}
+/*回复*/
+function huifu(t){
+	if(boolstr == '' ){
+		layer.open({
+		     content:'请先登录'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	var bodys = $("[name='bodys']:eq("+t+")").val();
+	if( bodys == '' ){
+		layer.open({
+		     content:'请输入回复内容'
+		    ,skin: 'msg'
+		    ,time: 2
+		});
+		return false;
+	}
+	var datas = $(".frm_huifu:eq("+t+")").serialize();
+	$.ajax({
+		url:'<?php echo apth_url("index.php");?>',
+		type:'post',
+		data:'act=mReplyContent&'+datas,  
+		success:function(msg){
+			var obj = eval("("+msg+")");
+			if( obj.error == '0' )
+			{
+				layer.open({
+				     content:'回复成功'
+				    ,skin: 'msg'
+				    ,time: 2
+				    ,end:function(){
+				    	location.reload();
+				    }
+				});
+			}
+			else
+			{
+				layer.open({
+				     content:obj.txt
+				    ,skin: 'msg'
+				    ,time: 2
+				});
+			}	
+		}	
+	});
+}
+/*关注问题*/
+function myfollow(id){
+	$.post("<?php echo apth_url('index.php');?>",{"act":"mPayAttentionProblem","id":id,"myid":"<?php echo $member_all['id'];?>"},function(data){
+		var b = eval("("+data+")");
+		if( b.error == 0 )
+		{
+			layer.open({
+			     content:'已关注一个问题'
+			    ,skin: 'msg'
+			    ,time: 2
+			});
+		}
+		else
+		{
+			layer.open({
+			     content:b.txt
+			    ,skin: 'msg'
+			    ,time: 2
+			});
+		}	
+	});
+}
+/*点赞*/
+function thumbs_up(d){
+	$.post("<?php echo apth_url('index.php');?>",{"act":"mAnswerPoint","id":d,"myid":"<?php echo $member_all['id'];?>"},function(data){
+		var b = eval("("+data+")");
+		if( b.error == 0 )
+		{
+			layer.open({
+			     content:'给一个赞'
+			    ,skin: 'msg'
+			    ,time: 2
+			    ,end:function(){
+			    	location.reload();
+			    }
+			});
+		}	
+		else
+		{
+			layer.open({
+			     content:b.txt
+			    ,skin: 'msg'
+			    ,time: 2
+			});
+		}	
+	});
+}
+</script> 
+</body>
+</html>

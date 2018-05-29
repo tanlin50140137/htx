@@ -1,0 +1,9 @@
+<!-- 头像 -->
+<div class="head-portrait" data-ripple>
+<?php if($boolstr == false){?>
+	<!-- <a href="<?php echo apth_url('?act=login_reset');?>"><img src="<?php echo apth_url('subject/htx/images/icon-02.png');?>" alt="未登录"></a> -->
+	<a href="javascript:void(0);" onclick="showccc();"><img src="<?php echo apth_url('subject/htx/images/icon-02.png');?>" alt="未登录"></a>
+<?php }else{?>	
+	<a href="<?php echo apth_url('?act=mypersonal');?>"><img src="<?php echo $boolstr['pic'];?>" alt="已经登录"></a>
+<?php }?>		
+</div>

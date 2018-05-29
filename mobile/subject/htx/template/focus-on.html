@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,shrink-to-fit=no,user-scalable=no,minimal-ui" name="viewport"/>
+<meta name ="format-detection" content="telephone=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge ,chrome=1" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title><?php echo $global['title'];?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/personal-css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/pinglun.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/personal/tab.js');?>"></script> 
+</head>
+<body>
+
+<!-- 头部 -->
+<div class="headbox headbox-a">
+	<div class="return" data-ripple></div>
+	<div class="location">关注</div>
+</div>
+<script>
+/*历史返回*/
+$('.return').click(function(){
+	history.go(-1);
+});
+</script> 
+<!-- /头部 -->
+
+<!-- 相关分类-->
+<div class="con-tab-personal">
+
+	<!-- header -->
+	<header class="favor-header-bar">
+	    <ul class="tabs tabs-li-1">
+	        <li><a href="javascript:void(0);" class="default">我已关注<?php echo $counts;?>个</a></li>
+	        <li><a href="javascript:void(0);">已有<?php echo $counts2;?>个关注我</a></li>
+	    </ul>
+	</header>
+   <!-- slideTo tab -->
+   <div class="swiper-container favor-list">
+        <div class="swiper-wrapper">
+        
+            <div class="swiper-slide swiper-slide-1">
+				<div class="">
+					<ul class="related-ul focus-ul">
+<?php if(!empty($row)){?>
+	<?php foreach( $row as $k=>$v ){?>				
+						<li>
+							<div class="note-questions-top answer-top related-div1">
+								<strong class="note-portrait">
+									<img src="<?php echo $v['pic'];?>" alt="<?php echo $v['useras'];?>">
+								</strong>
+								
+								<div class="answer-name"><?php echo GetXingSecrecy($v['useras'],$v['secrecy'],$v['subordinate']);?></div>
+
+								<div class="give answer-give">
+									<h5 class="give-h5"><a href="javascript:void(0);" onclick="SendAbolishConcern('<?php echo $v['id'];?>','<?php echo GetXingSecrecy($v['useras'],$v['secrecy'],$v['subordinate']);?>','<?php echo $v['myid'];?>');"  class="gz-btn">取消关注</a></h5>
+								</div>
+							</div>
+						</li>
+	<?php }?>					
+<?php }else{?>
+				<li style="text-align:center;line-height:45px;color:#e4d0d0;">你没有关注别人</li>
+<?php }?>						
+					</ul>
+				</div>	
+            </div>
+
+            <div class="swiper-slide">
+				<div class="">
+					<ul class="related-ul focus-ul">
+<?php if(!empty($row2)){?>
+	<?php foreach( $row2 as $k=>$v ){?>				
+						<li>
+							<div class="note-questions-top answer-top related-div1">
+								<strong class="note-portrait">
+									<img src="<?php echo $v['pic'];?>" alt="<?php echo $v['useras'];?>">
+								</strong>
+								
+								<div class="answer-name"><?php echo GetXingSecrecy($v['useras'],$v['secrecy'],$v['subordinate']);?></div>
+
+								<div class="give answer-give">
+									<h5 class="give-h5"><a href="javascript:void(0);" onclick="SendAbolishConcern2('<?php echo $v['myid'];?>','<?php echo $member_all['id'];?>','<?php echo GetXingSecrecy($member_all['useras'],$member_all['secrecy'],$member_all['subordinate']);?>');" class="gz-btn">关注</a></h5>
+								</div>
+							</div>
+						</li>
+	<?php }?>					
+<?php }else{?>
+				<li style="text-align:center;line-height:45px;color:#e4d0d0;">暂时没有人关注你</li>
+<?php }?>						
+					</ul>
+				</div>	
+            </div>
+            
+        </div>    
+   </div>
+</div>
+
+<!-- 底部 菜单-->
+<?php require('menu.html');?>
+<script src="<?php echo apth_url('subject/htx/js/ripple.js');?>"></script> 
+<script>
+function SendAbolishConcern(id,u,m)
+{//取消关注
+	$.post('<?php echo apth_url("index.php");?>',{"act":"mAbolishConcern","id":id,'useras':u,'myid':m},function(data){
+			var obj = eval("("+data+")");
+			if( obj.error == 0 )
+			{
+				 location.reload()
+			}	
+			else
+			{
+				layer.open({
+				    content: obj.txt
+				    ,skin: 'msg'
+				    ,time: 2
+				});
+			}	
+	});
+}
+function SendAbolishConcern2(id,u,m)
+{//关注
+	$.post('<?php echo apth_url("index.php");?>',{"act":"mAddAttention_moble","userid":id,"myid":u,"username":m},function(data){
+		var obj = eval("("+data+")");
+		if( obj.error == 0 )
+		{/*成功*/
+			if( obj.txt == 'success' )
+			{	
+				layer.open({
+				    content: '已添加关注'
+				    ,skin: 'msg'
+				    ,time: 2
+				    ,end:function(){
+				    	location.reload();
+				    }
+				});
+			}
+			else
+			{
+				layer.open({
+				    content: '你已经关注过'
+				    ,skin: 'msg'
+				    ,time: 2
+				});
+			}	
+		}
+		else if( obj.error == 1 )
+		{/*参数为空*/
+			layer.open({
+			    content: obj.txt
+			    ,skin: 'msg'
+			    ,time: 2
+			});
+		}
+		else if( obj.error == 2 )
+		{/*关注自已*/
+			layer.open({
+			    content: obj.txt
+			    ,skin: 'msg'
+			    ,time: 2
+			});
+		}
+		else if( obj.error == 3 )
+		{/*已关注过*/
+			layer.open({
+			    content: obj.txt
+			    ,skin: 'msg'
+			    ,time: 2
+			});
+		}
+		else if( obj.error == 4 )
+		{/*失败*/
+			layer.open({
+			    content: '系统错误，关注失败，无法关注。'
+			    ,skin: 'msg'
+			    ,time: 2
+			});
+		}	
+	});	
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0" />
+<meta name="keywords" content="<?php echo $global['keywords'];?>" />
+<meta name="description" content="<?php echo $global['description'];?>">
+<title><?php echo $global['title'];?></title>
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/css.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/style.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/common.css');?>" />
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/banner.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/ripple.css');?>">
+<link rel="stylesheet" type="text/css" href="<?php echo apth_url('subject/htx/css/layer.css');?>" />
+<script src="<?php echo apth_url('subject/htx/js/jquery.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/jquery-1.8.3.min.js');?>"></script> 
+<script src="<?php echo apth_url('subject/htx/js/amazeui.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/common.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/pageauto.js');?>"></script>
+<link rel="stylesheet" href="<?php echo apth_url('subject/htx/to-information/swiper.min.css');?>">
+<script src="<?php echo apth_url('subject/htx/to-information/swiper.min.js');?>"></script>
+<script src="<?php echo apth_url('subject/htx/js/layer.js');?>"></script>
+</head>
+
+<body>
+<!-- 头部 -->
+<div class="headbox headbox-a">
+	<div class="return" data-ripple><a href="<?php echo apth_url('');?>">返回</a></div>
+	<div class="location">搜索</div>
+	<?php require('pic.html');?>
+</div>
+<!-- /头部 -->
+
+<div class="swiper-container">
+	<div class="my-pagination"><ul class="my-pagination-ul"></ul></div>
+	<input type="hidden" id="fenlei-style" value="1"/>
+	<div class="swiper-wrapper">    
+	
+	    <!--搜索资料-->	
+		<div class="swiper-slide search-box">
+			<div class="upload-search widthdiv search-a">
+				<input type="text" id="input_text1" placeholder="分类/区域/标题/标签">
+				<a href="javascript:void(0);" class="search-btn1" onclick="getvideo();">搜索</a>
+			</div>
+
+			<div class="widthdiv search-classify">
+				<div class="classify-a">
+					<p class="classify-p">分类:</p>
+				    <select class="fl search-select classify-select _searchid">
+				        <option value="all">全部</option>
+<?php if(!empty($fl)){?>
+	<?php foreach($fl as $k=>$v){?>
+				        <option value="<?php echo $v['id'];?>"><?php echo $v['name'];?></option>
+	<?php }?>			        
+<?php }?>
+				    </select>
+				</div>
+
+				<div class="classify-a">
+					<p class="classify-p">通用:</p>
+					<div class="upload-a upload-modify1 z-fenlai">
+						<a href="javascript:void" class="a" onclick="maxfl(this);" data-infoid="all">全部</a>
+					</div>
+				</div>
+				<input type="hidden" id="input_maxfl" value="全部"/>
+				<input type="hidden" id="setminfl" value="all"/>
+				<input type="hidden" id="operation" value="0"/><!-- 操作标识号 -->
+				<div class="classify-a">
+					<p class="classify-p">区域:</p>
+				    <select class="fl search-select classify-select _eara">
+				        <option value="all">全部</option>
+<?php if(!empty($eara)){?>
+	<?php foreach($eara as $k=>$v){?>
+				        <option value="<?php echo $v['aid'];?>"><?php echo $v['areaname'];?></option>
+	<?php }?>			        
+<?php }?>
+				    </select>
+				</div>
+			</div>
+
+			<div class="tab-div classify1-content classify2-content">
+				<h5 class="h5div widthdiv dq-h5">当前：<span class="dangqian">全部</span></h5>
+				<ul class="ul-learn">
+<?php if($DataList['rows']!='end'){?>
+	<?php foreach($DataList['rows'] as $k=>$v){$j=ParsingJson($v['coverapth']);?>
+					<li> 
+						<a href="<?php echo apth_url('?act=data_content&consid='.$v['id']);?>" class="ul-learn-a">
+							<img src="<?php echo get_pixels($DataList['link1'].$j[0],350,230);?>" alt="<?php echo $v['title'];?>">
+						</a>
+						<div class="middle">
+							<h3><a href="<?php echo apth_url('?act=data_content&consid='.$v['id']);?>"><?php echo subString($v['title'],11);?></a></h3>
+							<section>
+								<span><?php echo $v['statefile']==1?'通用':$v['areasmax'];?></span>
+								<span><?php echo $v['flname'];?></span>
+								<b><?php echo $v['integral']!=0?'&yen;'.$v['integral']:'免费';?></b>
+							</section>
+						</div>
+						<a href="<?php echo apth_url('?act=data_content&consid='.$v['id']);?>" class="learn-btn">下载</a>						
+					</li>
+	<?php }?>				
+<?php }else{?>
+					<li style="line-height:50px;text-align:center;color:#999999;">对不起，没有找到符合条件的资料！</li>
+<?php }?>
+				</ul>
+<?php if($DataList['rows']!='end'){?>				
+				<div class="con-main more-btn classify-btn loading_box">
+					<a href="javascript:void(0);" class="loading_gd">加载更多</a>
+					<a href="javascript:void(0);" class="loading_gd" style="display:none;">
+						<img src="<?php echo apth_url('subject/htx/images/htx_loading.gif');?>" align="absmiddle" style="display:inline;width:15px;" alt="加载更多"/> 加载更多
+					</a>
+					<a href="javascript:void(0);" class="loading_gd" style="display:none;">加载完毕</a>
+				</div>
+<?php }?>							
+			</div>
+        </div>
+  
+        <!--搜索视频-->
+ 		<div class="swiper-slide search-box">
+			<div class="upload-search widthdiv search-a">
+				<input type="text" id="input_text2" placeholder="分类/区域/标题/标签">
+				<a href="javascript:void(0);" class="search-btn1" onclick="getvideo_v();">搜索</a>
+			</div>
+
+			<div class="widthdiv search-classify">
+				<div class="classify-a">
+					<p class="classify-p">分类:</p>
+					<div class="upload-a upload-modify1 v_fl_all">
+						<a href="javascript:void(0);" onclick="maxfl_video(this);" class="a" v-data-id="all">全部</a>
+					</div>
+				</div>
+				<input type="hidden" id="input_names" value="全部"/>
+				<input type="hidden" id="setminfl2" value="all"/>
+				<div class="classify-a">
+					<p class="classify-p">区域:</p>
+				    <select class="fl search-select classify-select _eara2"></select>
+				</div>
+			</div>
+<?php if($DataList['rows']!='end'){?>
+			<div class="tab-div classify1-content classify2-content">
+				<h5 class="h5div widthdiv dq-h5">当前：<span class="dangqian">全部</span></h5>
+				<ul class="ul-learn"></ul>				
+				<div class="con-main more-btn classify-btn video_gd">
+					<a href="javascript:void(0);" class="loading_gd_v">加载更多</a>
+					<a href="javascript:void(0);" class="loading_gd_v" style="display:none;">
+						<img src="<?php echo apth_url('subject/htx/images/htx_loading.gif');?>" align="absmiddle" style="display:inline;width:15px;" alt="加载更多"/> 加载更多
+					</a>
+					<a href="javascript:void(0);" class="loading_gd_v" style="display:none;">加载完毕</a>
+				</div>
+			</div>
+<?php }?>			
+        </div>             
+	</div>
+</div>
+
+<script> 
+var flag = 1;//1=资料;3=视频
+var page_zl=2;
+var mySwiper = new Swiper('.swiper-container',{
+pagination: '.my-pagination-ul',
+paginationClickable: true,
+onSlideChangeStart: function(swiper){//切换
+	var getid = swiper.activeIndex;
+	flag = getid==0?1:3;
+	$("#fenlei-style").val(flag);
+	$("#operation").val('0');
+	//获取数据
+	if(getid==0)
+	{	
+		//重置大类
+		$("._searchid").html($("._searchid").html());
+		//重置小类
+		var html  = '<a href="javascript:void(0);" class="a" onclick="maxfl(this);" data-infoid="all">全部</a>';
+		$('.z-fenlai').empty();
+		$('.z-fenlai').append(html);
+		//重置区域
+		$("._eara").html($("._eara").html());
+		//重置视频
+		$(".ul-learn:eq(1)").empty();
+		
+		$(".dangqian:eq(0)").html('全部');
+				
+		AsynchronousResult('','','','',1,'');
+	}
+	else
+	{
+		//重置视频
+		$(".ul-learn:eq(0)").empty();
+		
+		GetVideo();		
+	}
+},
+paginationBulletRender: function (index, className) {
+		switch (index) {
+		  case 0: name='资料';break;
+		  case 1: name='视频';break;
+		  default: name='';
+		}
+      return '<li class="' + className + '" data-ids="' + index + '" onclick="setflagid(this);">' + name + '</li>';
+  } 
+});
+function setflagid(t){//切换
+	var getid = $(t).attr("data-ids");
+	flag = getid==0?1:3;
+	$("#fenlei-style").val(flag);
+	$("#operation").val('0');
+	//获取数据
+	if(getid==0)
+	{	
+		
+		//重置大类
+		$("._searchid").html($("._searchid").html());
+		//重置小类
+		var html  = '<a href="javascript:void(0);" class="a" onclick="maxfl(this);" data-infoid="all">全部</a>';
+		$('.z-fenlai').empty();
+		$('.z-fenlai').append(html);
+		//重置区域
+		$("._eara").html($("._eara").html());
+		//重置视频
+		$(".ul-learn:eq(1)").empty();
+		
+		$(".dangqian:eq(0)").html('全部');
+		
+		AsynchronousResult('','','','',1,'');
+	}
+	else
+	{	
+		//重置视频
+		$(".ul-learn:eq(0)").empty();
+		
+		GetVideo();
+	}	
+}
+//切换视频
+function GetVideo()
+{
+	//获取分类
+	$.post('<?php echo apth_url("index.php");?>',{'act':'getzfl_video','id':''},function(data){
+		var obj = eval("("+data+")");
+		var len = obj.rows.length;
+		var html  = '<a href="javascript:void(0);" onclick="maxfl_video(this);" class="a" v-data-id="all">全部</a>';
+		for(var i=0;i<len;i++)
+		{
+			html += '<a href="javascript:void(0);" onclick="maxfl_video(this);" v-data-id="'+obj.rows[i].id+'">'+obj.rows[i].name+'</a>';
+		}
+		$(".v_fl_all").empty();
+		$(".v_fl_all").append(html);
+	});
+	//重置
+	$("._eara2").html($("._eara").html());
+	
+	$(".dangqian:eq(1)").html('全部');
+	//获取数据
+	AsynchronousResult('','','','',1,'');
+}
+</script>
+
+<!-- 底部 菜单 -->
+<?php require('menu.html');?>
+<script>
+$(function(){
+	$("._searchid").change(function(){//大类
+		var id = $(this).val();
+		var html  = '<a href="javascript:void(0);" class="a" onclick="maxfl(this);" data-infoid="all">全部</a>';
+		if( id != 'all' )
+		{	
+			$.post('<?php echo apth_url("?act=getzfl");?>',{'id':id},function(data){
+				var obj = eval("("+data+")");
+				if( obj.rows != 'end' )
+				{
+					var len = obj.rows.length;					
+					for(var i=0;i<len;i++)
+					{
+						html += '<a href="javascript:void(0);" onclick="maxfl(this);" data-infoid="'+obj.rows[i].id+'">'+obj.rows[i].name+'</a>';
+					}
+					$('.z-fenlai').empty();
+					$('.z-fenlai').append(html);
+					
+					$("#setminfl").val('all');
+				}
+			});
+		}
+		else
+		{
+			$('.z-fenlai').empty();
+			$('.z-fenlai').append(html);
+		}
+		
+		//获取大类ID
+		var d = $("._searchid").val();
+		//获取小类ID
+		var h = $("#setminfl").val()=='all'?'':$("#setminfl").val();
+		//重置搜索框
+		$("#input_text1").val('');
+		//重置区域
+		$("._eara").html($("._eara").html());
+		//获取区域ID
+		var b = $("._eara").val()=='all'?'':$("._eara").val();
+		//当前
+		if(d!='all')
+		{
+			$(".dangqian:eq(0)").html( $(this).find("option:selected").text()+'/全部' );
+		}
+		else
+		{
+			$(".dangqian:eq(0)").html('全部');
+		}
+		$("#operation").val('1');
+		//获取数据
+		AsynchronousResult(d,h,1,b,1,'');
+	});
+});
+//小分类-资料
+function maxfl(t)
+{
+	//选中状态
+	$(".z-fenlai a").removeClass("a"),$(t).addClass("a");
+	//设置小类ID
+	$("#setminfl").val($(t).attr('data-infoid'));
+	
+	//获取大类ID
+	var d = $("._searchid").val();
+	//获取小类ID
+	var h = $("#setminfl").val()=='all'?'':$("#setminfl").val();	
+	//重置
+	$("._eara").html($("._eara").html());
+	//获取区域ID
+	var b = $("._eara").val()=='all'?'':$("._eara").val();
+	//当前
+	$("#input_maxfl").val($(t).text());
+	$(".dangqian:eq(0)").html($("._searchid").find("option:selected").text()+'/'+$(t).text());
+		
+	//获取数据
+	if( h != '' )
+	{//通用	
+		$("#operation").val('2');
+		AsynchronousResult('',h,2,'',1,'');
+	}
+	else
+	{//全部	
+		$("#operation").val('1');
+		AsynchronousResult(d,h,1,b,1,'');
+	}	
+}
+//小分类-视频
+function maxfl_video(t)
+{
+	//选中状态
+	$(".v_fl_all a").removeClass("a"),$(t).addClass("a");
+	//设置小类ID
+	var videoid = $(t).attr('v-data-id');
+	$("#setminfl2").val(videoid);
+	//重置搜索框
+	$("#input_text2").val('');
+	//重置区域
+	$("._eara2").html($("._eara2").html());
+	if(videoid == 'all')
+	{
+		$(".dangqian:eq(1)").html('全部');
+	}
+	else
+	{
+		$("#input_names").val($(t).text());
+		$(".dangqian:eq(1)").html('通用/'+$(t).text());
+	}
+	$("#operation").val('4');
+	//获取数据
+	AsynchronousResult(videoid,'',4,'',1,'');
+}
+//区域
+$(function(){
+	$("._eara").change(function(){//资料
+		//获取大类ID
+		var d = $("._searchid").val();
+		//获取小类ID
+		var h = $("#setminfl").val()=='all'?'':$("#setminfl").val();
+		//获取区域ID
+		var b = $("._eara").val()=='all'?'':$("._eara").val();
+		//当前
+		if(b!='')
+		{
+			$("#operation").val('3');
+			if(d=='all' && $("#input_maxfl").val()=='全部')
+			{	
+				$(".dangqian:eq(0)").html($("._searchid").find("option:selected").text()+'/'+$(this).find("option:selected").text());
+			}
+			else
+			{
+				$(".dangqian:eq(0)").html($("._searchid").find("option:selected").text()+'/'+$("#input_maxfl").val()+'/'+$(this).find("option:selected").text());
+			}	
+		}
+		else
+		{
+			$("#operation").val('2');
+			$(".dangqian:eq(0)").html($("._searchid").find("option:selected").text()+($("#input_maxfl").val()=='全部'?'':'/'+$("#input_maxfl").val()));	
+		}		
+		//获取数据
+		AsynchronousResult(d,h,3,b,1,'');
+	});
+	$("._eara2").change(function(){//视频
+		//获取小类ID
+		var videoid = $("#setminfl2").val();
+		//获取区域ID
+		var idVal = $("._eara2").val()=='all'?'-1':$("._eara2").val();
+		//重置搜索框
+		$("#input_text2").val('');
+		
+		if(idVal == '-1')
+		{
+			$(".dangqian:eq(1)").html('全部');
+		}
+		else
+		{
+			$(".dangqian:eq(1)").html($("#input_names").val()+'/'+$(this).find("option:selected").text());
+		}
+		$("#operation").val('7');
+		//获取数据
+		AsynchronousResult(videoid,'',4,idVal,1,'');
+	});
+});
+//搜索框－资料
+function getvideo()
+{
+	//重置大类
+	$("._searchid").html($("._searchid").html());
+	//重置小类
+	var html  = '<a href="javascript:void(0);" class="a" onclick="maxfl(this);" data-infoid="all">全部</a>';
+	$('.z-fenlai').empty();
+	$('.z-fenlai').append(html);
+	//重置区域
+	$("._eara").html($("._eara").html());
+	//获取关键字
+	var t = $("#input_text1").val();
+	$(".dangqian:eq(0)").html(t);
+	//获取数据
+	$("#operation").val('5');
+	AsynchronousResult('','',5,'',1,t);
+}
+//搜索框－视频
+function getvideo_v()
+{
+	//获取分类
+	$.post('<?php echo apth_url("index.php");?>',{'act':'getzfl_video','id':''},function(data){
+		var obj = eval("("+data+")");
+		var len = obj.rows.length;
+		var html  = '<a href="javascript:void(0);" onclick="maxfl_video(this);" class="a" v-data-id="all">全部</a>';
+		for(var i=0;i<len;i++)
+		{
+			html += '<a href="javascript:void(0);" onclick="maxfl_video(this);" v-data-id="'+obj.rows[i].id+'">'+obj.rows[i].name+'</a>';
+		}
+		$(".v_fl_all").empty();
+		$(".v_fl_all").append(html);
+	});
+	//重置区域
+	$("._eara2").html($("._eara2").html());
+	//获取关键字
+	var t = $("#input_text2").val();	
+	$(".dangqian:eq(1)").html(t);
+	//获取数据
+	$("#operation").val('5');
+	AsynchronousResult('','',5,'',1,t);	
+}
+//加载更多
+$(function(){
+	$(".loading_box a:eq(0)").click(function(){//资料
+		//获取大类ID
+		var d = $("._searchid").val();
+		//获取小类ID
+		var h = $("#setminfl").val()=='all'?'':$("#setminfl").val();	
+		//获取区域ID
+		var b = $("._eara").val()=='all'?'':$("._eara").val();
+		//获取操作标识号
+		var op_number = $("#operation").val();
+		//获取关键字
+		var t = $("#input_text1").val();
+		
+		if( op_number == 0 ){
+			AsynchronousResult_gd('','','','',page_zl,'');
+		}else if( op_number == 1 ){
+			AsynchronousResult_gd(d,h,1,b,page_zl,'');
+		}else if( op_number == 2 ){
+			AsynchronousResult_gd('',h,2,'',page_zl,'');
+		}else if( op_number == 3 ){
+			AsynchronousResult_gd(d,h,3,b,page_zl,'');
+		}else if( op_number == 5 ){
+			AsynchronousResult_gd('','',5,'',page_zl,t);
+		}
+		
+		page_zl++;
+	});
+	$(".video_gd a:eq(0)").click(function(){
+		//获取小类ID
+		var videoid = $("#setminfl2").val();
+		//获取区域ID
+		var idVal = $("._eara2").val()=='all'?'-1':$("._eara2").val();
+		//获取操作标识号
+		var op_number = $("#operation").val();
+		//获取关键字
+		var t = $("#input_text2").val();
+				
+		if( op_number == 0 ){
+			AsynchronousResult_gd('','','','',page_zl,'');
+		}else if( op_number == 4 ){
+			AsynchronousResult_gd(videoid,'',4,'',page_zl,'');
+		}else if( op_number == 7 ){
+			AsynchronousResult_gd(videoid,'',4,idVal,page_zl,'');
+		}else if( op_number == 5 ){
+			AsynchronousResult_gd('','',5,'',page_zl,t);
+		}
+		page_zl++;
+	});
+});
+//搜索结果
+function AsynchronousResult(d,h,f,b,g,t){	
+	$.ajax({    
+		type:'post',    
+		url:'<?php echo apth_url("index.php")?>',    
+		data:'act=getsearch&style='+$("#fenlei-style").val()+'&flagid='+d+'&pid='+h+'&flag='+f+'&area='+b+'&page='+g+'&t='+t,    
+		beforeSend:function(){      
+			//some js code
+			if(flag==1)
+			{
+				$(".loading_gd:eq(0)").show();
+				$(".loading_gd:eq(2)").hide();
+			}
+			else
+			{
+				$(".loading_gd_v:eq(0)").show();
+				$(".loading_gd_v:eq(2)").hide();
+			}	
+			page_zl=2;
+		},    
+		success:function(msg){
+			//console.log(msg);return false;
+			var f = flag==1?0:1;
+			if(msg!='end')
+			{	
+				$(".ul-learn:eq("+f+")").empty();
+				$(".ul-learn:eq("+f+")").append(msg);
+			}
+			else
+			{
+				if(flag==1)
+				{	
+					$(".loading_box").hide();
+				}
+				else
+				{
+					$(".video_gd").hide();
+				}	
+				
+				$(".ul-learn:eq("+f+")").empty();
+				$(".ul-learn:eq("+f+")").append('<li style="line-height:50px;text-align:center;color:#999999;">对不起，没有找到符合条件的资料！</li>');
+			}	
+		} 
+	});
+}
+//搜索结果-更多
+function AsynchronousResult_gd(d,h,f,b,g,t){
+	var _flag='';
+	$.ajax({    
+		type:'post',    
+		url:'<?php echo apth_url("index.php")?>',    
+		data:'act=getsearch&style='+$("#fenlei-style").val()+'&flagid='+d+'&pid='+h+'&flag='+f+'&area='+b+'&page='+g+'&t='+t,    
+		beforeSend:function(){
+			if(flag==1)
+			{	
+				$(".loading_gd:eq(0)").hide();
+				$(".loading_gd:eq(1)").show();
+			}
+			else
+			{
+				$(".loading_gd_v:eq(0)").hide();
+				$(".loading_gd_v:eq(1)").show();
+			}	
+		},
+		complete:function(){			
+			if( _flag == 'end' )
+			{
+				if(flag==1)
+				{
+					$(".loading_gd:eq(0)").hide();
+					$(".loading_gd:eq(1)").hide();
+					$(".loading_gd:eq(2)").show();
+				}
+				else
+				{
+					$(".loading_gd_v:eq(0)").hide();
+					$(".loading_gd_v:eq(1)").hide();
+					$(".loading_gd_v:eq(2)").show();
+				}	
+			}
+			else
+			{
+				if(flag==1)
+				{
+					$(".loading_gd:eq(0)").show();
+					$(".loading_gd:eq(1)").hide();
+				}
+				else
+				{
+					$(".loading_gd_v:eq(0)").show();
+					$(".loading_gd_v:eq(1)").hide();
+				}
+			}	
+		},    
+		success:function(msg){
+			_flag=msg;
+			
+			var f = flag==1?0:1;
+			if( msg != 'end' )
+			{
+				$(".ul-learn:eq("+f+")").append(msg);
+			}							
+		} 
+	});
+}
+</script>
+</body>
+</html>
